@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PDYCSY9R8Z"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-PDYCSY9R8Z');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nightmare | Testing four frontier models on 148 adversarial insurance documents | Aginor</title>
+<meta name="description" content="GPT-5.4 reported $40.6M of revenue on a document that says $95M. A test of four frontier models on 148 adversarial insurance documents.">
+<meta name="keywords" content="insurance document extraction, frontier model evaluation, hallucination test, GPT-5.4, Claude Opus 4.7, Gemini 3.1, adversarial documents, synthetic ground truth">
+<meta name="author" content="Tim Michaud">
+<link rel="canonical" href="https://www.aginor.ai/benchmark/">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Nightmare | Testing four frontier models on 148 adversarial insurance documents">
+<meta property="og:description" content="GPT-5.4 fabricates plausible numeric values at 2.8 to 6.5 times the rate of every other frontier model on visually-degraded insurance documents.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.aginor.ai/benchmark/">
+<meta property="og:site_name" content="Aginor">
+<meta property="article:published_time" content="2026-04-20">
+<meta property="article:author" content="Tim Michaud">
+<meta property="article:section" content="AI Evaluation">
+<meta property="article:tag" content="insurance document extraction">
+<meta property="article:tag" content="frontier model evaluation">
+<meta property="article:tag" content="hallucination">
+<meta property="og:image" content="https://www.aginor.ai/benchmark/images/hero-acord45.png">
+<meta property="og:image:width" content="888">
+<meta property="og:image:height" content="498">
+<meta property="og:image:alt" content="Adversarial ACORD 45 property schedule, a skewed page with handwritten annotation used in the Nightmare test">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Nightmare | Testing four frontier models on 148 adversarial insurance documents">
+<meta name="twitter:description" content="GPT-5.4 fabricates plausible numeric values at 2.8 to 6.5 times the rate of every other frontier model on visually-degraded insurance documents.">
+<meta name="twitter:image" content="https://www.aginor.ai/benchmark/images/hero-acord45.png">
+
+<!-- Structured Data: TechArticle for GEO/SEO -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "GPT-5.4 reported $40.6M of revenue on a document that says $95M",
+  "description": "GPT-5.4 reported $40.6M of revenue on a document that says $95M. A test of four frontier models (GPT-5.4, Claude Opus 4.7, Claude Sonnet 4.6, Gemini 3.1 Pro) on 148 adversarial insurance documents generated with synthetic ground truth.",
+  "abstract": "GPT-5.4 fabricates plausible numeric values at 2.8 to 6.5 times the rate of every other frontier model on visually-degraded insurance documents. Paired-document analysis across 148 documents shows GPT-5.4 worse than all three comparators on 45 of them and better than all three on only 2.",
+  "datePublished": "2026-04-20",
+  "dateModified": "2026-04-20",
+  "inLanguage": "en",
+  "url": "https://www.aginor.ai/benchmark/",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.aginor.ai/benchmark/"
+  },
+  "image": "https://www.aginor.ai/benchmark/images/hero-financial.png",
+  "author": {
+    "@type": "Person",
+    "name": "Tim Michaud",
+    "jobTitle": "Founder",
+    "affiliation": {
+      "@type": "Organization",
+      "name": "Aginor",
+      "url": "https://www.aginor.ai"
+    }
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Aginor",
+    "url": "https://www.aginor.ai"
+  },
+  "about": [
+    {"@type": "Thing", "name": "Insurance document extraction"},
+    {"@type": "Thing", "name": "Large language model evaluation"},
+    {"@type": "Thing", "name": "Hallucination measurement"},
+    {"@type": "Thing", "name": "Synthetic ground truth"}
+  ],
+  "mentions": [
+    {"@type": "SoftwareApplication", "name": "GPT-5.4", "applicationCategory": "LargeLanguageModel"},
+    {"@type": "SoftwareApplication", "name": "Claude Opus 4.7", "applicationCategory": "LargeLanguageModel"},
+    {"@type": "SoftwareApplication", "name": "Claude Sonnet 4.6", "applicationCategory": "LargeLanguageModel"},
+    {"@type": "SoftwareApplication", "name": "Gemini 3.1 Pro", "applicationCategory": "LargeLanguageModel"}
+  ],
+  "keywords": "insurance document extraction, frontier model evaluation, hallucination test, GPT-5.4, Claude Opus 4.7, Claude Sonnet 4.6, Gemini 3.1 Pro, adversarial documents, synthetic ground truth, ACORD forms"
+}
+</script>
+
+<!-- Structured Data: BreadcrumbList -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Aginor", "item": "https://www.aginor.ai/"},
+    {"@type": "ListItem", "position": 2, "name": "Nightmare Test Report", "item": "https://www.aginor.ai/benchmark/"}
+  ]
+}
+</script>
+
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #08080c;
+    --surface: #0f0f14;
+    --surface-2: #16161d;
+    --border: #1e1e28;
+    --border-hover: #2a2a38;
+    --text: #dcdce0;
+    --text-body: #a0a0aa;
+    --text-dim: #66666e;
+    --accent: #ff5722;
+    --accent-glow: rgba(255, 87, 34, 0.15);
+    --green: #00d97e;
+    --green-dim: rgba(0, 217, 126, 0.1);
+    --blue: #4a9eff;
+    --blue-dim: rgba(74, 158, 255, 0.1);
+    --mono: 'Space Mono', monospace;
+    --sans: 'Inter', -apple-system, sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    line-height: 1.6;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 32px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Nav: shared with landing */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    padding: 28px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: padding 0.3s, background 0.3s;
+  }
+
+  nav.scrolled {
+    padding: 16px 0;
+    background: rgba(8, 8, 12, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    margin: 0 -32px;
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+
+  .logo {
+    font-family: var(--mono);
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--text);
+    letter-spacing: -0.5px;
+    text-decoration: none;
+  }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .nav-right a {
+    font-size: 13px;
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-right a:hover { color: var(--text); }
+
+  .nav-right a.current { color: var(--text); }
+
+  .nav-cta {
+    font-family: var(--mono) !important;
+    font-size: 12px !important;
+    color: var(--accent) !important;
+    border: 1px solid rgba(255,87,34,0.3);
+    padding: 6px 14px;
+    border-radius: 4px;
+    transition: all 0.2s !important;
+  }
+
+  .nav-cta:hover {
+    background: var(--accent-glow) !important;
+    border-color: var(--accent) !important;
+  }
+
+  /* Article header */
+  .article-header {
+    padding: 72px 0 32px;
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 20px;
+  }
+
+  .article-header h1 {
+    font-family: var(--mono);
+    font-size: clamp(28px, 4.2vw, 44px);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -1px;
+    color: var(--text);
+    margin-bottom: 24px;
+  }
+
+  .dek {
+    font-family: var(--mono);
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--text-body);
+    padding: 18px 20px;
+    border-left: 2px solid var(--accent);
+    background: var(--accent-glow);
+    border-radius: 0 6px 6px 0;
+  }
+
+  .article-meta {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+
+  .article-meta span strong {
+    color: var(--text-body);
+    font-weight: 600;
+  }
+
+  /* Prose */
+  .prose {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 0 48px;
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--text-body);
+  }
+
+  .prose > * + * { margin-top: 1.1em; }
+
+  .prose h2 {
+    font-family: var(--mono);
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    color: var(--text);
+    margin-top: 3em;
+    margin-bottom: 0.6em;
+    padding-top: 1em;
+    border-top: 1px solid var(--border);
+    scroll-margin-top: 80px;
+  }
+
+  .prose h2:first-child { border-top: none; padding-top: 0; margin-top: 0; }
+
+  .prose h3 {
+    font-family: var(--mono);
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+    margin-top: 2em;
+    margin-bottom: 0.4em;
+  }
+
+  .prose p { color: var(--text-body); }
+
+  .prose em {
+    color: var(--text);
+    font-style: italic;
+  }
+
+  .prose strong { color: var(--text); font-weight: 600; }
+
+  .prose a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255,87,34,0.3);
+    transition: border-color 0.2s;
+  }
+
+  .prose a:hover { border-color: var(--accent); }
+
+  .prose code {
+    font-family: var(--mono);
+    font-size: 0.88em;
+    background: var(--surface-2);
+    color: var(--text);
+    padding: 2px 6px;
+    border-radius: 3px;
+    border: 1px solid var(--border);
+  }
+
+  .prose pre {
+    font-family: var(--mono);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 18px 20px;
+    overflow-x: auto;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .prose pre code {
+    background: transparent;
+    border: none;
+    padding: 0;
+    font-size: inherit;
+  }
+
+  .prose blockquote {
+    border-left: 2px solid var(--border-hover);
+    padding: 4px 0 4px 20px;
+    color: var(--text-dim);
+    font-style: italic;
+  }
+
+  .prose ul, .prose ol {
+    padding-left: 1.4em;
+    color: var(--text-body);
+  }
+
+  .prose li + li { margin-top: 0.35em; }
+
+  .prose hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 2.5em 0;
+  }
+
+  /* Tables */
+  .table-wrap {
+    margin: 1.6em 0;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--surface);
+  }
+
+  .table-caption {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    padding: 14px 20px;
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .table-scroll {
+    overflow-x: auto;
+  }
+
+  table.data {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+
+  table.data th,
+  table.data td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+  }
+
+  table.data tbody tr:last-child td { border-bottom: none; }
+
+  table.data th {
+    font-family: var(--mono);
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    background: var(--surface-2);
+  }
+
+  table.data td {
+    font-family: var(--mono);
+    color: var(--text-body);
+  }
+
+  table.data td:first-child {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  table.data td .hl {
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  table.data tr:hover td {
+    background: rgba(255, 87, 34, 0.03);
+  }
+
+  /* Hero callouts */
+  .hero-figure {
+    margin: 2em 0;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface);
+    overflow: hidden;
+  }
+
+  .hero-figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero-figure .placeholder {
+    aspect-ratio: 16 / 9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: repeating-linear-gradient(
+      45deg,
+      var(--surface),
+      var(--surface) 14px,
+      var(--surface-2) 14px,
+      var(--surface-2) 28px
+    );
+    border-bottom: 1px solid var(--border);
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--text-dim);
+    text-align: center;
+    padding: 24px;
+    line-height: 1.6;
+  }
+
+  .hero-figure .placeholder strong {
+    display: block;
+    color: var(--accent);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .hero-figure figcaption {
+    padding: 14px 20px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-dim);
+    line-height: 1.55;
+  }
+
+  /* Reproduce box */
+  .reproduce-box {
+    margin: 2em 0;
+    padding: 24px 28px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 8px 8px 0;
+  }
+
+  .reproduce-box h3 {
+    font-family: var(--mono);
+    font-size: 14px;
+    font-weight: 700;
+    margin: 0 0 10px;
+    color: var(--text);
+  }
+
+  .reproduce-box p {
+    font-size: 14px;
+    color: var(--text-body);
+    line-height: 1.65;
+    margin: 0 0 8px;
+  }
+
+  .reproduce-box a {
+    color: var(--accent);
+  }
+
+  /* CTA */
+  .post-cta {
+    margin: 48px auto 0;
+    max-width: 720px;
+    text-align: center;
+    padding: 48px 32px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+  }
+
+  .post-cta h2 {
+    font-family: var(--mono);
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--text);
+    letter-spacing: -0.3px;
+  }
+
+  .post-cta p {
+    color: var(--text-body);
+    font-size: 15px;
+    margin-bottom: 28px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 28px;
+    border-radius: 6px;
+    font-family: var(--sans);
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+  }
+
+  .btn-fire {
+    background: var(--accent);
+    color: white;
+  }
+
+  .btn-fire:hover {
+    background: #ff6d3d;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(255,87,34,0.25);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+
+  .btn-ghost:hover {
+    border-color: var(--border-hover);
+    background: var(--surface);
+  }
+
+  .cta-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  footer {
+    padding: 32px 0;
+    margin-top: 60px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+
+  footer a {
+    color: var(--text-dim);
+    text-decoration: none;
+    margin-left: 20px;
+    transition: color 0.2s;
+  }
+
+  footer a:hover { color: var(--accent); }
+
+  /* Responsive */
+  @media (max-width: 700px) {
+    .article-header { padding-top: 48px; }
+    .prose { font-size: 15px; }
+    .prose h2 { font-size: 20px; }
+    .nav-right a:not(.nav-cta):not(.current) { display: none; }
+    .cta-actions { flex-direction: column; align-items: stretch; }
+    footer { flex-direction: column; gap: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+  <nav>
+    <a href="/" class="logo">AGINOR</a>
+    <div class="nav-right">
+      <a href="mailto:tim@aginor.ai">Contact</a>
+      <a href="/benchmark/" class="current">Benchmark</a>
+      <a href="mailto:tim@aginor.ai?subject=Aginor%3A%20Sample%20Request&body=Hi%20Tim%2C%0A%0AI'd%20like%20to%20see%20a%20sample%20batch.%0A%0ADoc%20type%20%2F%20use%20case%3A%20%0ACompany%3A%20%0A%0AThanks!" class="nav-cta">Request sample &rarr;</a>
+    </div>
+  </nav>
+
+  <header class="article-header">
+    <div class="eyebrow">Aginor · Test report · April 2026</div>
+    <h1>GPT-5.4 reported $40.6M of revenue on a document that says $95M</h1>
+    <p class="dek">Testing four frontier models on 148 adversarial insurance documents</p>
+  </header>
+
+  <article class="prose">
+
+    <p>TL;DR: on visually-degraded documents, GPT-5.4 fabricates numeric values at 2.8 to 6.5 times the rate of every other frontier model I tested. The other three tend to under-answer when they can't read a field cleanly (the two Claudes hedge with nulls, Gemini just emits fewer fields), whereas GPT-5.4 confidently fills in plausible fake numbers instead. Same 148 documents, same prompts, same scoring pipeline for everyone.</p>
+
+    <div class="table-wrap">
+      <div class="table-caption">Hallucination rates across 148 documents</div>
+      <div class="table-scroll">
+        <table class="data">
+          <thead>
+            <tr>
+              <th>Metric</th>
+              <th>GPT-5.4</th>
+              <th>Opus 4.7</th>
+              <th>Sonnet 4.6</th>
+              <th>Gemini 3.1</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Numeric hallucination rate</td><td><span class="hl">3.9%</span></td><td>0.6%</td><td>1.4%</td><td>0.8%</td></tr>
+            <tr><td>String hallucination rate</td><td><span class="hl">10.2%</span></td><td>7.0%</td><td>7.8%</td><td>5.6%</td></tr>
+            <tr><td>Fabricated values per document</td><td><span class="hl">4.6</span></td><td>2.8</td><td>3.5</td><td>1.8</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <div class="table-caption">Paired-document comparison: GPT-5.4 vs each comparator</div>
+      <div class="table-scroll">
+        <table class="data">
+          <thead>
+            <tr>
+              <th>Comparator</th>
+              <th>GPT-5.4 worse</th>
+              <th>GPT-5.4 better</th>
+              <th>Ties</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>vs Opus 4.7</td><td><span class="hl">54</span></td><td>13</td><td>81</td></tr>
+            <tr><td>vs Sonnet 4.6</td><td><span class="hl">46</span></td><td>27</td><td>75</td></tr>
+            <tr><td>vs Gemini 3.1</td><td><span class="hl">61</span></td><td>5</td><td>82</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <p>On <strong>45</strong> of the 148 documents, GPT-5.4 fabricates more than every other model tested on the same document. On only <strong>2</strong> does it fabricate less than all three.</p>
+
+    <p>Exact-match evaluation against flat field values won't catch any of this. GPT-5.4's output looks perfectly reasonable in isolation: the currency is well-formed, the location rows match the schema, and the numbers tie back to each other cleanly. You need labeled adversarial ground truth plus paired-comparison scoring across models to see this kind of failure at all, which is why I built Nightmare.</p>
+
+    <h2>The $95M financial statement</h2>
+
+    <figure class="hero-figure">
+      <img src="images/hero-financial.png" alt="N4 financial statement crop. Revenue and cost-of-construction rendered in dark-grey on dark-grey, visually near-invisible. Gross Profit of $25,574,100 visible between them.">
+      <figcaption>This is the N4 financial statement. The $95M revenue line and the $69.4M cost-of-construction line are both typeset dark-grey on dark-grey (they're on the page, just almost invisible). Gross Profit sits visibly between them, which is presumably why it got picked up fine.</figcaption>
+    </figure>
+
+    <p>GPT-5.4 reported $40.6M of revenue. Four of its six income-statement lines came back off by millions of dollars, but the fabricated numbers were all internally consistent with each other. Revenue minus COGS equaled gross profit, the income tax worked out to a plausible effective rate, the whole thing added up cleanly. That's why nothing about the output was going to trip a normal eval. Opus 4.7 and Sonnet 4.6 both returned null for revenue, COGS, and the rest of the hard-to-read lines, which is the correct move when you can't confidently extract a value. Gemini 3.1 Pro was the only model that read through the dark-grey-on-dark-grey rendering and returned the correct figures.</p>
+
+    <div class="table-wrap">
+      <div class="table-caption">Financial statement, actual vs extracted</div>
+      <div class="table-scroll">
+        <table class="data">
+          <thead>
+            <tr>
+              <th>Line item</th>
+              <th>Actual</th>
+              <th>GPT-5.4</th>
+              <th>Opus 4.7</th>
+              <th>Sonnet 4.6</th>
+              <th>Gemini 3.1 Pro</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Revenue</td><td>$95.0M</td><td><span class="hl">$40.6M</span></td><td>null</td><td>null</td><td>$95.0M</td></tr>
+            <tr><td>COGS</td><td>$69.4M</td><td><span class="hl">$15.0M</span></td><td>null</td><td>null</td><td>$69.4M</td></tr>
+            <tr><td>Interest expense</td><td>$3.02M</td><td><span class="hl">$1.02M</span></td><td>null</td><td>null</td><td>$3.02M</td></tr>
+            <tr><td>Net income</td><td>$6.00M</td><td><span class="hl">$7.55M</span></td><td>null</td><td>null</td><td>$6.00M</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <p>GPT-5.4 raw output, unedited:</p>
+
+<pre><code>"income_statement": {
+  "revenue": {
+    "gross_revenue": null,
+    "net_revenue": 40593800
+  },
+  "cost_of_goods_sold": 15019700,
+  "gross_profit": 25574100,
+  "operating_income": 11052200,
+  "interest_expense": 1017400,
+  "income_before_tax": 10034800,
+  "income_tax": 2485400,
+  "net_income": 7549400
+}</code></pre>
+
+    <p><strong>See it yourself:</strong> <a href="https://github.com/Tim-Aginor/nightmare-benchmark/blob/main/examples/financial_statement_N4/source/financial_statement_70004.pdf" rel="noopener">rendered PDF</a> · <a href="https://github.com/Tim-Aginor/nightmare-benchmark/blob/main/examples/financial_statement_N4/source/ground_truth.json" rel="noopener">ground truth</a> · <a href="https://github.com/Tim-Aginor/nightmare-benchmark/tree/main/examples/financial_statement_N4/extractions" rel="noopener">all four model extractions</a></p>
+
+    <h2>The ACORD 45 property schedule</h2>
+
+    <figure class="hero-figure">
+      <img src="images/hero-acord45.png" alt="N5 ACORD 45 Building / Location Schedule. 9-row table with skewed page, blue bleed-through, red handwritten 'Need docs' annotation. Row 2 shows 'Rickerbacker Air Hub' with $14,800,000 building value.">
+      <figcaption>N5 ACORD 45 with skew, blue bleed-through, and a handwritten "Need docs" annotation. The rendered PDF also glyph-corrupts "Rickenbacker" into "Rickerbacker" as part of the N5 difficulty profile, while the canonical ground truth in the packet keeps the original spelling.</figcaption>
+    </figure>
+
+    <p>GPT-5.4 returned all 9 rows. Row 2 is fabricated: it reports "Rockford Air Hub" at $24.0M where the PDF shows "Rickerbacker Air Hub" at $14.8M (the N5 render glyph-corrupts the canonical "Rickenbacker"). Opus 4.7 and Sonnet 4.6 both returned "Rickenbacker Air Hub", the canonical form, not the "Rickerbacker" their input shows. I can't tell from the outside whether they read the corrupted glyphs and pattern-matched to the real airport, or whether the VLM normalized the visuals before the language head saw them. Either way, they got the right name. GPT-5.4's output has no visual or phonetic relationship to anything on the page. Row 6 has a quieter version of the same issue: "Harrisburg Consolidation Hub" came back as "Hamburg Consolidation Hub." Per-row building values are wrong on 8 of the 9 rows, but the grand building total is exact to the dollar and the contents total is off by 0.4%, so spot-checking by summing columns won't catch the fabrication. Gemini skipped the per-location breakout and returned only an aggregate.</p>
+
+    <div class="table-wrap">
+      <div class="table-caption">ACORD 45, per-model behaviour</div>
+      <div class="table-scroll">
+        <table class="data">
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th>Locations</th>
+              <th>Row 2 name (truth: "Rickenbacker Air Hub")</th>
+              <th>Row 2 value (truth: $14.8M)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>GPT-5.4</td><td>9</td><td><span class="hl">"Rockford Air Hub"</span></td><td><span class="hl">$24.0M</span></td></tr>
+            <tr><td>Opus 4.7</td><td>9</td><td>"Rickenbacker Air Hub" ✓</td><td>$14.8M ✓</td></tr>
+            <tr><td>Sonnet 4.6</td><td>9</td><td>"Rickenbacker Air Hub" ✓</td><td>$14.8M ✓</td></tr>
+            <tr><td>Gemini 3.1 Pro</td><td>aggregate only</td><td>n/a</td><td>n/a</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <p>GPT-5.4 raw output (location 2 plus totals, unedited):</p>
+
+<pre><code>"building_location_2": "Rockford Air Hub",
+"building_location_2_building": 24000000,
+"building_location_2_contents": 7000000,
+"building_location_2_business_income": 5400000,
+"building_location_2_tiv": 36400000,
+"building_location_3": "Cleveland Distribution Center",
+"building_location_4": "Pittsburgh Regional Terminal",
+"building_location_5": "Philadelphia Cross-Dock",
+"building_location_6": "Hamburg Consolidation Hub",
+"building_location_7": "Toledo Service Center",
+"building_location_8": "Fleet Maintenance Center",
+"building_location_9": "Administrative Office",
+...
+"total_building": 54110000,
+"total_contents": 30200000</code></pre>
+
+    <p><strong>See it yourself:</strong> <a href="https://github.com/Tim-Aginor/nightmare-benchmark/blob/main/examples/acord_45_N5/source/acord_45_70005.pdf" rel="noopener">rendered PDF</a> · <a href="https://github.com/Tim-Aginor/nightmare-benchmark/blob/main/examples/acord_45_N5/source/ground_truth.json" rel="noopener">schedule ground truth</a> · <a href="https://github.com/Tim-Aginor/nightmare-benchmark/blob/main/examples/acord_45_N5/source/master_schedule.json" rel="noopener">master schedule (canonical names)</a> · <a href="https://github.com/Tim-Aginor/nightmare-benchmark/tree/main/examples/acord_45_N5/extractions" rel="noopener">all four model extractions</a></p>
+
+    <h2>What's actually in Nightmare</h2>
+
+    <p>Nightmare is 148 documents across 5 difficulty levels, from N1 (clean digital) to N5 (stacks corruption, handwriting, and cross-document mismatches). It covers 9 categories: 11 ACORD forms, SOVs, loss runs in PDF, CSV, or XLSX, dec pages, engineering reports, financial statements, driver schedules, narratives, and hybrid workbooks.</p>
+
+    <p>The generator emits the PDF or XLSX and the ground-truth JSON in the same pass. No labeling step to outsource; the labels are the data that rendered the document. Scoring is a composite field-accuracy score plus a separate hallucination analyzer, and the prompts, schemas, and scoring code all live in the <a href="https://github.com/Tim-Aginor/nightmare-benchmark" rel="noopener">public repo</a>.</p>
+
+    <h2>Caveats</h2>
+
+    <p>Two things to keep in mind for this version of the test.</p>
+
+    <h3>Sample size</h3>
+    <p>I ran one packet per difficulty level. That's enough for paired-document claims (same document, four models, same prompts) but not for academic-grade rate estimates. It's why I'm calling this a test, not a benchmark.</p>
+
+    <h3>Hallucination analyzer threshold</h3>
+    <p>The analyzer accepts strings of five or more tokens when at least 80% of the tokens match the source universe, so legitimate compounds like <code>"LOC-001: Preston Center Tower, 8117 Preston Road, Dallas, TX 75225"</code> pass through cleanly. The tradeoff is that one fabricated token can hide inside a long compound, which means the fabrication numbers undercount GPT-5.4 rather than inflate it. Details in <code>scripts/hallucination_analysis.py</code>.</p>
+
+    <h2>A few other things worth knowing</h2>
+
+    <p>Failures here are pretty quiet. Across all four models, 37% of extractions scored below 0.5 composite without ever tripping a catastrophic-error flag, and only 3% crossed the catastrophic threshold at all. Your production pipeline isn't going to break in any obvious way on these documents. It's going to degrade field by field, underneath whatever review threshold you've trained your reviewers on, and you won't notice unless you're actively looking.</p>
+
+    <p>Overall composite scores cluster at 0.56 to 0.62 across all four frontier models (i.e. there is no hero model on raw accuracy). The actual signal between these models lives in the fabrication rate, not in the composite and not in the catastrophic-flag count.</p>
+
+    <p>Gemini's low fabrication rate is partly a volume effect. It emits 27.6 strings and 26.7 numbers per document on average, compared to 32 to 40 for the other three, so it simply has fewer chances to be wrong on any given document. Reading the table as "Gemini is the safest model" is probably misreading what the numbers are actually measuring.</p>
+
+    <h2 id="work">Work with me</h2>
+
+    <p>If you're at an insurance carrier or brokerage, I generate labeled synthetic submission packets against your schema at any volume. Ground truth ships with every field, every location, every line item, in the same pass that renders the document. No labeling step to staff, no vendor to coordinate with, no calibration calls. <a href="mailto:tim@aginor.ai?subject=Aginor%3A%20Sample%20Request&body=Hi%20Tim%2C%0A%0AI'd%20like%20to%20see%20a%20sample%20batch.%0A%0ADoc%20type%20%2F%20use%20case%3A%20%0ACompany%3A%20%0A%0AThanks!">Request a sample &rarr;</a></p>
+
+    <p>If you run a document-extraction platform, I'll size hard-case packets for your test, train, and dev loops against the documents you actually work with, or port the generator to your vertical entirely (financial services, legal, healthcare, procurement, whatever you're on). The adversarial-pattern infrastructure is built, so porting is a template change, not a rebuild. <a href="mailto:tim@aginor.ai?subject=Aginor%3A%20Port%20to%20new%20vertical&body=Hi%20Tim%2C%0A%0AWe%20run%20a%20doc%20extraction%20platform%20and%20want%20to%20talk%20about%20porting%20the%20generator%20to%20our%20vertical.%0A%0ACompany%3A%20%0AVertical%20%2F%20domain%3A%20%0ADoc%20types%20we%20handle%3A%20%0ABiggest%20extraction%20pain%20points%3A%20%0A%0AThanks!">Talk about custom packets &rarr;</a></p>
+
+    <p>If you want the full 148-document test set, it's available under research or commercial license, including for training-scale generation. Custom sizing and templates on request. <a href="mailto:tim@aginor.ai?subject=Nightmare%3A%20Licensing%20or%20research%20access&body=Hi%20Tim%2C%0A%0AI'd%20like%20access%20to%20(mark%20any%20that%20apply)%3A%0A%5B%20%5D%20Full%20148-doc%20test%20set%20(research%20license)%0A%5B%20%5D%20Commercial%20license%20(training%20%2F%20production%20use)%0A%5B%20%5D%20Detailed%20methodology%20notes%20%2B%20per-doc%20data%0A%0AName%20%2F%20affiliation%3A%20%0AIntended%20use%3A%20%0A%0AThanks!">Licensing or access &rarr;</a></p>
+
+    <h2 id="verify">Trust, but verify</h2>
+
+    <div class="reproduce-box">
+      <h3>Sample packet + scoring pipeline</h3>
+      <p>Everything you need to reproduce the headline findings on the N1 easy packet is in the public repo (25 documents, ground truth, scoring engine, prompts): <a href="https://github.com/Tim-Aginor/nightmare-benchmark" rel="noopener">github.com/Tim-Aginor/nightmare-benchmark</a>.</p>
+      <p>Match your extractor output to the schema in <code>prompts/</code>, then run <code>scripts/score.py</code> for the per-category composite scores and catastrophic-error counts, and <code>scripts/hallucination_analysis.py</code> for the fabrication pass.</p>
+      <p><em>All data is synthetic: no real PII, no real policies, no real companies.</em></p>
+    </div>
+
+  </article>
+
+  <footer>
+    <span>&copy; 2026 Aginor</span>
+    <div>
+      <a href="/">Home</a>
+      <a href="mailto:tim@aginor.ai">Contact</a>
+    </div>
+  </footer>
+</div>
+
+<script>
+// Nav scroll state
+const nav = document.querySelector('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+}, { passive: true });
+</script>
+
+</body>
+</html>
