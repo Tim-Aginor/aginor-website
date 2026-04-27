@@ -647,7 +647,7 @@
 
   <article class="prose">
 
-    <p>TL;DR: on visually-degraded documents, GPT-5.4 and GPT-5.5 fabricate numeric values at 2.6 to 6.5 times the rate of Opus 4.7 and Sonnet 4.6 at matched default effort (all four with thinking off). When the Anthropic models can't read a field cleanly they return null, which is the right move. The OpenAI models confidently fill in a plausible-looking number instead. Same 148 documents, same prompts, same scoring pipeline. Rerunning at matched HIGH and XHIGH reasoning effort (which is also where Gemini 3.1 Pro can fairly come back in, since it has no thinking-off mode) narrows the gap but doesn't close it: GPT-5.4 drops to 2.5% numeric hallucination at HIGH while Opus, Sonnet, and Gemini stay roughly flat. GPT-5.5 (released April 23) doesn't reproduce GPT-5.4's HIGH-effort improvement; its numeric rate is flat across effort levels and at HIGH actually exceeds GPT-5.4's.</p>
+    <p>TL;DR: on visually-degraded documents, GPT-5.4 and GPT-5.5 fabricate numeric values at 2.6 to 6.5 times the rate of Opus 4.7 and Sonnet 4.6 at matched default effort (all four with thinking off). When the Anthropic models can't read a field cleanly they return null, which is the right move. The OpenAI models fill in a plausible-looking number instead. Same 148 documents, same prompts, same scoring pipeline. Rerunning at matched HIGH and XHIGH reasoning effort (which is also where Gemini 3.1 Pro can fairly come back in, since it has no thinking-off mode) narrows the gap but doesn't close it: GPT-5.4 drops to 2.5% numeric hallucination at HIGH while Opus, Sonnet, and Gemini stay roughly flat. GPT-5.5 (released April 23) doesn't reproduce GPT-5.4's HIGH-effort improvement; its numeric rate is flat across effort levels and at HIGH actually exceeds GPT-5.4's.</p>
 
     <div class="table-wrap">
       <div class="table-caption">Hallucination rates at matched default effort (thinking off)</div>
@@ -671,7 +671,7 @@
       </div>
     </div>
 
-    <p>Gemini 3.1 Pro isn't in this default-effort table. Its API has no thinking-off mode (default is HIGH), so a default-vs-default row wouldn't be a matched comparison. It reappears in the matched HIGH and XHIGH tables further below.</p>
+    <p>Gemini 3.1 Pro isn't in this default-effort table. Its API has no thinking-off mode (default is HIGH), so a default-vs-default row wouldn't be a matched comparison. It reappears in the matched HIGH and XHIGH tables later on in this post.</p>
 
     <div class="table-wrap">
       <div class="table-caption">Paired-document comparison at default effort: GPT-5.4 vs each comparator</div>
@@ -759,7 +759,7 @@
       <figcaption>N5 ACORD 45 with skew, blue bleed-through, and a handwritten "Need docs" annotation. The rendered PDF also glyph-corrupts "Rickenbacker" into "Rickerbacker" as part of the N5 difficulty profile, while the canonical ground truth in the packet keeps the original spelling.</figcaption>
     </figure>
 
-    <p>GPT-5.4 returned all 9 rows. Row 2 is fabricated: it reports "Rockford Air Hub" at $24.0M where the PDF shows "Rickerbacker Air Hub" at $14.8M (the N5 render glyph-corrupts the canonical "Rickenbacker"). Opus 4.7, Sonnet 4.6, and GPT-5.5 all returned "Rickenbacker Air Hub", the canonical form, not the "Rickerbacker" their input shows. I can't tell from the outside whether those three models read the corrupted glyphs and pattern-matched to the real airport, or whether something cleaned it up before they ever saw it. Either way, they got the right name. GPT-5.4's output has no visual or phonetic relationship to anything on the page. Row 6 has a quieter version of the same issue: "Harrisburg Consolidation Hub" came back as "Hamburg Consolidation Hub." Per-row building values are wrong on 8 of the 9 rows, but the grand building total is exact to the dollar and the contents total is off by 0.4%, so spot-checking by summing columns won't catch the fabrication. Gemini skipped the per-location breakout and returned only an aggregate.</p>
+    <p>GPT-5.4 returned all 9 rows, but row 2 is fabricated: it reports "Rockford Air Hub" at $24.0M where the PDF shows "Rickerbacker Air Hub" at $14.8M (the N5 render glyph-corrupts the string "Rickenbacker"). Opus 4.7, Sonnet 4.6, and GPT-5.5 all returned "Rickenbacker Air Hub", the real airport, not the "Rickerbacker" string that their input shows. I can't tell from the outside whether those three models read the corrupted glyphs and pattern-matched to the real airport, or whether something cleaned it up before they ever saw it. Either way, they got the right name. GPT-5.4's output has no visual or phonetic relationship to anything on the page. Row 6 has a quieter version of the same issue: "Harrisburg Consolidation Hub" came back as "Hamburg Consolidation Hub." Per-row building values are wrong on 8 of the 9 rows, but the grand building total is exact to the dollar and the contents total is off by 0.4%, so spot-checking by summing columns won't catch the fabrication. Gemini skipped the per-location breakout and returned only an aggregate.</p>
 
     <p>This is the case where GPT-5.5 visibly improves: same row, same input, it produces row 2 as "Rickenbacker Air Hub" at $14.8M. So the per-row fabrication on this specific document is a GPT-5.4-only failure mode. The aggregate numbers say the broader pattern (5.5 fabricating numbers at roughly the same rate as 5.4) is unchanged.</p>
 
@@ -806,9 +806,9 @@
 
     <p><strong>See it yourself:</strong> <a href="https://github.com/Tim-Aginor/nightmare-extraction-test/blob/main/examples/hallucinations/acord_45_N5/source/acord_45_70005.pdf" rel="noopener">rendered PDF</a> · <a href="https://github.com/Tim-Aginor/nightmare-extraction-test/blob/main/examples/hallucinations/acord_45_N5/source/ground_truth.json" rel="noopener">schedule ground truth</a> · <a href="https://github.com/Tim-Aginor/nightmare-extraction-test/blob/main/examples/hallucinations/acord_45_N5/source/packet_truth.json" rel="noopener">full packet ground truth</a> · <a href="https://github.com/Tim-Aginor/nightmare-extraction-test/tree/main/examples/hallucinations/acord_45_N5/extractions" rel="noopener">all five model extractions (default / HIGH / XHIGH)</a></p>
 
-    <h2>At every reasoning level</h2>
+    <h2>Reasoning level data</h2>
 
-    <p>I reran the 148-document test at three reasoning-effort levels for each model: default, HIGH, and XHIGH (Sonnet's XHIGH-equivalent is effort=max, its ceiling). Matched-effort comparisons are the clean read.</p>
+    <p>I reran the 148-document test at three reasoning-effort levels for each model: default, HIGH, and XHIGH (Sonnet's XHIGH-equivalent is effort=max, its ceiling).</p>
 
     <div class="table-wrap">
       <div class="table-caption">Numeric hallucination rate by reasoning effort</div>
@@ -858,7 +858,7 @@
 
     <p><small>* GPT-5.4 XHIGH: n=146 (2 docs timed out). &dagger; Sonnet HIGH: n=147 (1 doc). &Dagger; Sonnet XHIGH: n=141 (7 docs). See "Excluded cells" below.</small></p>
 
-    <p>Thinking helps GPT-5.4 cleanly on string hallucination (6.9% &rarr; 4.7% &rarr; 2.7%) and messily on numeric (3.9% drops to 2.5% at HIGH, rebounds to 3.1% at XHIGH). GPT-5.5 doesn't reproduce that gradient. Its numeric rate is flat across effort levels (3.7% / 4.2% / 3.9%) and at HIGH actually exceeds GPT-5.4's. On the string side, 5.5 nudges down (7.0% &rarr; 6.3%) and stops; where GPT-5.4 falls to 2.7% at XHIGH, GPT-5.5 stays at 6.3%. The other three models don't respond to the lever either: Opus, Sonnet, and Gemini show flat numeric rates across effort levels, and the small drifts go in the wrong direction (Opus 0.6% &rarr; 1.0%). Even if the 2 timed-out docs came back with 0 hallucinations, it doesn't help here: GPT-5.4 XHIGH still lands at 3.02%, above its own 2.45% HIGH rate.</p>
+    <p>Thinking helps GPT-5.4 cleanly on string hallucination (6.9% &rarr; 4.7% &rarr; 2.7%) and messily on numeric (3.9% drops to 2.5% at HIGH, rebounds to 3.1% at XHIGH). GPT-5.5 doesn't improve; its numeric rate is flat across effort levels (3.7% / 4.2% / 3.9%) and at HIGH actually exceeds GPT-5.4's. On the string side, 5.5 nudges down (7.0% &rarr; 6.3%) and stops; where GPT-5.4 falls to 2.7% at XHIGH, GPT-5.5 stays at 6.3%. The other three models don't respond to the lever either: Opus, Sonnet, and Gemini show flat numeric rates across effort levels, and the small drifts go in the wrong direction (Opus 0.6% &rarr; 1.0%). Even if the 2 timed-out docs came back with 0 hallucinations, it doesn't help here: GPT-5.4 XHIGH still lands at 3.02%, above its own 2.45% HIGH rate.</p>
 
     <p>At matched HIGH, GPT-5.4 fabricates numbers at 2.5% and GPT-5.5 at 4.2%, against Gemini 3.1 Pro's 1.2%, Opus 4.7's 0.7%, and Sonnet 4.6's 1.5%. The OpenAI/baseline gap narrows for GPT-5.4 (~2-4x depending on comparator) and widens for GPT-5.5 (~3-6x).</p>
 
@@ -875,11 +875,11 @@
     <p>The analyzer accepts strings of five or more tokens when at least 80% of the tokens match the source universe, so legitimate compounds like <code>"LOC-001: Preston Center Tower, 8117 Preston Road, Dallas, TX 75225"</code> pass through cleanly. The tradeoff is that one fabricated token can hide inside a long compound, which means the fabrication numbers undercount the OpenAI models (the high-fabrication side) rather than inflate them. Details in <code>scripts/hallucination_analysis.py</code>.</p>
 
     <h3>Thinking defaults vary by provider</h3>
-    <p>The three providers disagree on what "default" means: Anthropic's Opus 4.7 and Sonnet 4.6 default to thinking off, OpenAI's GPT-5.4 and GPT-5.5 default to no reasoning_effort parameter (also thinking off), and Google's Gemini 3 defaults to HIGH with no thinking-off mode at all. That's why Gemini is out of the default-effort headline table. Running Gemini-at-HIGH against four thinking-off models would not be a matched comparison. It reappears in the HIGH and XHIGH tables below, where all five models are at matched effort. If you want the unmatched default-vs-default view (which is what a production customer hitting each API actually gets), read across the Default column in the per-effort tables. The <a href="https://github.com/Tim-Aginor/nightmare-extraction-test/blob/main/report.md#configuration" rel="noopener">raw report</a> has exact API parameter names and values per provider, plus the Anthropic-adaptive-is-opt-in clarification (no-thinking-param means no thinking, not adaptive).</p>
+    <p>The three providers disagree on what "default" means: Anthropic's Opus 4.7 and Sonnet 4.6 default to thinking off, OpenAI's GPT-5.4 and GPT-5.5 default to no reasoning_effort parameter (also thinking off), and Google's Gemini 3 defaults to HIGH with no thinking-off mode at all. That's why Gemini is out of the default-effort headline table. Running Gemini-at-HIGH against four thinking-off models wouldn't be a matched comparison. It reappears in the HIGH and XHIGH tables below, where all five models are at matched effort. If you want the unmatched default-vs-default view, read across the Default column in the per-effort tables. The <a href="https://github.com/Tim-Aginor/nightmare-extraction-test/blob/main/report.md#configuration" rel="noopener">raw report</a> has exact API parameter names and values per provider, plus the Anthropic-adaptive-is-opt-in clarification (no-thinking-param means no thinking, not adaptive).</p>
     <p><small>Thanks to the anonymous reviewer who flagged this thinking-default gap on the original draft.</small></p>
 
     <h3>Timeouts</h3>
-    <p>Ten HIGH/XHIGH extractions exceeded the 20-minute client timeout and were dropped from their cells: 7 Sonnet XHIGH, 1 Sonnet HIGH, 2 GPT-5.4 XHIGH. Pattern: long scan-heavy loss-run and driver-schedule PDFs from N4 and N5, plus one ACORD 127 at N5. No Opus, no Gemini, no default-effort failures. Source PDFs are in the repo's <code>examples/timeouts/</code> folder; the pivot tables' footnotes give the adjusted n per affected cell.</p>
+    <p>Ten HIGH/XHIGH extractions exceeded the 20-minute client timeout and were dropped from their cells: 7 Sonnet XHIGH, 1 Sonnet HIGH, 2 GPT-5.4 XHIGH. Pattern: long scan-heavy loss-run and driver-schedule PDFs from N4 and N5, plus one ACORD 127 at N5. Source PDFs are in the repo's <code>examples/timeouts/</code> folder; the pivot tables' footnotes give the adjusted n per affected cell.</p>
 
     <h3>Failures are quiet</h3>
     <p>Across all five models, 37% of extractions scored below 0.5 composite without ever tripping a catastrophic-error flag, and only 3% crossed the catastrophic threshold at all. Your production pipeline isn't going to break in any obvious way on these documents. It's going to degrade field by field, underneath whatever review threshold you've trained your reviewers on, and you won't notice unless you're actively looking.</p>
@@ -902,7 +902,7 @@
 
     <div class="reproduce-box">
       <h3>Sample packet + scoring pipeline</h3>
-      <p>Everything you need to reproduce the headline findings on the N1 easy packet is in the public repo (25 documents, ground truth, scoring engine, prompts): <a href="https://github.com/Tim-Aginor/nightmare-extraction-test" rel="noopener">github.com/Tim-Aginor/nightmare-extraction-test</a>.</p>
+      <p>Everything you need to reproduce the headline findings on the N1 easy packet is in the public repo (25 documents, ground truth, scoring engine, prompts): <a href="https://github.com/Tim-Aginor/nightmare-extraction-test" rel="noopener">nightmare-extraction-test</a>.</p>
       <p>Match your extractor output to the schema in <code>prompts/</code>, then run <code>scripts/score.py</code> for the per-category composite scores and catastrophic-error counts, and <code>scripts/hallucination_analysis.py</code> for the fabrication pass.</p>
       <p>Full hallucination tables, exact API settings per model, and per-model run counts (including timeout exclusions) live in the <a href="https://github.com/Tim-Aginor/nightmare-extraction-test/blob/main/report.md" rel="noopener">raw report</a>.</p>
       <p><em>All data is synthetic: no real PII, no real policies, no real companies.</em></p>
