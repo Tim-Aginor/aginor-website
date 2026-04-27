@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PDYCSY9R8Z"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-PDYCSY9R8Z');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nightmare | Testing five frontier models on 148 adversarial insurance documents | Aginor</title>
+<meta name="description" content="GPT-5.5 reported $405.9M of revenue on a document that says $95M. GPT-5.4 said $40.6M. A test of five frontier models on 148 adversarial insurance documents.">
+<meta name="keywords" content="insurance document extraction, frontier model evaluation, hallucination test, GPT-5.5, GPT-5.4, Claude Opus 4.7, Gemini 3.1, adversarial documents, synthetic ground truth">
+<meta name="author" content="Tim Michaud">
+<link rel="canonical" href="https://www.aginor.ai/extraction-test/">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Nightmare | Testing five frontier models on 148 adversarial insurance documents">
+<meta property="og:description" content="GPT-5.4 and GPT-5.5 fabricate plausible numeric values at 2.6 to 6.5 times the rate of the Anthropic and Google frontier models at matched default effort on visually-degraded insurance documents.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.aginor.ai/extraction-test/">
+<meta property="og:site_name" content="Aginor">
+<meta property="article:published_time" content="2026-04-20">
+<meta property="article:author" content="Tim Michaud">
+<meta property="article:section" content="AI Evaluation">
+<meta property="article:tag" content="insurance document extraction">
+<meta property="article:tag" content="frontier model evaluation">
+<meta property="article:tag" content="hallucination">
+<meta property="og:image" content="https://www.aginor.ai/extraction-test/images/hero-acord45.png">
+<meta property="og:image:width" content="888">
+<meta property="og:image:height" content="498">
+<meta property="og:image:alt" content="Adversarial ACORD 45 property schedule, a skewed page with handwritten annotation used in the Nightmare test">
+<meta property="article:modified_time" content="2026-04-26">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Nightmare | Testing five frontier models on 148 adversarial insurance documents">
+<meta name="twitter:description" content="GPT-5.4 and GPT-5.5 fabricate plausible numeric values at 2.6 to 6.5 times the rate of the Anthropic and Google frontier models at matched default effort on visually-degraded insurance documents.">
+<meta name="twitter:image" content="https://www.aginor.ai/extraction-test/images/hero-acord45.png">
+
+<!-- Structured Data: TechArticle for GEO/SEO -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "GPT-5.5 reported $405.9M of revenue on a document that says $95M. GPT-5.4 said $40.6M.",
+  "description": "GPT-5.5 reported $405.9M of revenue on a document that says $95M; GPT-5.4 said $40.6M on the same page. A test of five frontier models (GPT-5.5, GPT-5.4, Claude Opus 4.7, Claude Sonnet 4.6, Gemini 3.1 Pro) on 148 adversarial insurance documents generated with synthetic ground truth.",
+  "abstract": "GPT-5.4 and GPT-5.5 fabricate plausible numeric values at 2.6 to 6.5 times the rate of the Anthropic and Google frontier models at matched default effort on visually-degraded insurance documents. Paired-document analysis across 148 documents shows GPT-5.4 worse than both Opus 4.7 and Sonnet 4.6 on 47 of them and better than both on only 8. At matched HIGH and XHIGH reasoning effort, GPT-5.4's numeric rate falls but stays 3 to 4 times the Anthropic/Google baseline; GPT-5.5 does not reproduce GPT-5.4's HIGH-effort improvement and at HIGH actually exceeds GPT-5.4.",
+  "datePublished": "2026-04-20",
+  "dateModified": "2026-04-26",
+  "inLanguage": "en",
+  "url": "https://www.aginor.ai/extraction-test/",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.aginor.ai/extraction-test/"
+  },
+  "image": "https://www.aginor.ai/extraction-test/images/hero-financial.png",
+  "author": {
+    "@type": "Person",
+    "name": "Tim Michaud",
+    "jobTitle": "Founder",
+    "affiliation": {
+      "@type": "Organization",
+      "name": "Aginor",
+      "url": "https://www.aginor.ai"
+    }
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Aginor",
+    "url": "https://www.aginor.ai"
+  },
+  "about": [
+    {"@type": "Thing", "name": "Insurance document extraction"},
+    {"@type": "Thing", "name": "Large language model evaluation"},
+    {"@type": "Thing", "name": "Hallucination measurement"},
+    {"@type": "Thing", "name": "Synthetic ground truth"}
+  ],
+  "mentions": [
+    {"@type": "SoftwareApplication", "name": "GPT-5.5", "applicationCategory": "LargeLanguageModel"},
+    {"@type": "SoftwareApplication", "name": "GPT-5.4", "applicationCategory": "LargeLanguageModel"},
+    {"@type": "SoftwareApplication", "name": "Claude Opus 4.7", "applicationCategory": "LargeLanguageModel"},
+    {"@type": "SoftwareApplication", "name": "Claude Sonnet 4.6", "applicationCategory": "LargeLanguageModel"},
+    {"@type": "SoftwareApplication", "name": "Gemini 3.1 Pro", "applicationCategory": "LargeLanguageModel"}
+  ],
+  "keywords": "insurance document extraction, frontier model evaluation, hallucination test, GPT-5.5, GPT-5.4, Claude Opus 4.7, Claude Sonnet 4.6, Gemini 3.1 Pro, adversarial documents, synthetic ground truth, ACORD forms"
+}
+</script>
+
+<!-- Structured Data: BreadcrumbList -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Aginor", "item": "https://www.aginor.ai/"},
+    {"@type": "ListItem", "position": 2, "name": "Nightmare Extraction Test", "item": "https://www.aginor.ai/extraction-test/"}
+  ]
+}
+</script>
+
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #08080c;
+    --surface: #0f0f14;
+    --surface-2: #16161d;
+    --border: #1e1e28;
+    --border-hover: #2a2a38;
+    --text: #dcdce0;
+    --text-body: #a0a0aa;
+    --text-dim: #66666e;
+    --accent: #ff5722;
+    --accent-glow: rgba(255, 87, 34, 0.15);
+    --green: #00d97e;
+    --green-dim: rgba(0, 217, 126, 0.1);
+    --blue: #4a9eff;
+    --blue-dim: rgba(74, 158, 255, 0.1);
+    --mono: 'Space Mono', monospace;
+    --sans: 'Inter', -apple-system, sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    line-height: 1.6;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page {
+    max-width: 984px;
+    margin: 0 auto;
+    padding: 0 32px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Nav: shared with landing */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    padding: 28px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: padding 0.3s, background 0.3s;
+  }
+
+  nav.scrolled {
+    padding: 16px 0;
+    background: rgba(8, 8, 12, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    margin: 0 -32px;
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+
+  .logo {
+    font-family: var(--mono);
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--text);
+    letter-spacing: -0.5px;
+    text-decoration: none;
+  }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .nav-right a {
+    font-size: 13px;
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-right a:hover { color: var(--text); }
+
+  .nav-right a.current { color: var(--text); }
+
+  .nav-cta {
+    font-family: var(--mono) !important;
+    font-size: 12px !important;
+    color: var(--accent) !important;
+    border: 1px solid rgba(255,87,34,0.3);
+    padding: 6px 14px;
+    border-radius: 4px;
+    transition: all 0.2s !important;
+  }
+
+  .nav-cta:hover {
+    background: var(--accent-glow) !important;
+    border-color: var(--accent) !important;
+  }
+
+  /* Article header */
+  .article-header {
+    padding: 72px 0 32px;
+    max-width: 920px;
+    margin: 0 auto;
+  }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 20px;
+  }
+
+  .article-header h1 {
+    font-family: var(--mono);
+    font-size: clamp(28px, 4.2vw, 44px);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -1px;
+    color: var(--text);
+    margin-bottom: 24px;
+  }
+
+  .dek {
+    font-family: var(--mono);
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--text-body);
+    padding: 18px 20px;
+    border-left: 2px solid var(--accent);
+    background: var(--accent-glow);
+    border-radius: 0 6px 6px 0;
+  }
+
+  .article-meta {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+
+  .article-meta span strong {
+    color: var(--text-body);
+    font-weight: 600;
+  }
+
+  /* Prose */
+  .prose {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 32px 0 48px;
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--text-body);
+  }
+
+  .prose > * + * { margin-top: 1.1em; }
+
+  .prose h2 {
+    font-family: var(--mono);
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    color: var(--text);
+    margin-top: 3em;
+    margin-bottom: 0.6em;
+    scroll-margin-top: 80px;
+  }
+
+  .prose h2:first-child { margin-top: 0; }
+
+  .prose h3 {
+    font-family: var(--mono);
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+    margin-top: 2em;
+    margin-bottom: 0.4em;
+  }
+
+  .prose p { color: var(--text-body); }
+
+  .prose em {
+    color: var(--text);
+    font-style: italic;
+  }
+
+  .prose strong { color: var(--text); font-weight: 600; }
+
+  .prose a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255,87,34,0.3);
+    transition: border-color 0.2s;
+  }
+
+  .prose a:hover { border-color: var(--accent); }
+
+  .prose code {
+    font-family: var(--mono);
+    font-size: 0.88em;
+    background: var(--surface-2);
+    color: var(--text);
+    padding: 2px 6px;
+    border-radius: 3px;
+    border: 1px solid var(--border);
+  }
+
+  .prose pre {
+    font-family: var(--mono);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 18px 20px;
+    overflow-x: auto;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .prose pre code {
+    background: transparent;
+    border: none;
+    padding: 0;
+    font-size: inherit;
+  }
+
+  .prose blockquote {
+    border-left: 2px solid var(--border-hover);
+    padding: 4px 0 4px 20px;
+    color: var(--text-dim);
+    font-style: italic;
+  }
+
+  .prose ul, .prose ol {
+    padding-left: 1.4em;
+    color: var(--text-body);
+  }
+
+  .prose li + li { margin-top: 0.35em; }
+
+  .prose hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 2.5em 0;
+  }
+
+  /* Tables */
+  .table-wrap {
+    margin: 1.6em 0;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--surface);
+  }
+
+  .table-caption {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    padding: 14px 20px;
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .table-scroll {
+    overflow-x: auto;
+  }
+
+  table.data {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+
+  table.data th,
+  table.data td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+
+  table.data td {
+    white-space: nowrap;
+  }
+
+  table.data tbody tr:last-child td { border-bottom: none; }
+
+  table.data th {
+    font-family: var(--mono);
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    background: var(--surface-2);
+  }
+
+  table.data td {
+    font-family: var(--mono);
+    color: var(--text-body);
+  }
+
+  table.data td:first-child {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  table.data td .hl {
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  table.data tr:hover td {
+    background: rgba(255, 87, 34, 0.03);
+  }
+
+  /* Hero callouts */
+  .hero-figure {
+    margin: 2em 0;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface);
+    overflow: hidden;
+  }
+
+  .hero-figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero-figure .placeholder {
+    aspect-ratio: 16 / 9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: repeating-linear-gradient(
+      45deg,
+      var(--surface),
+      var(--surface) 14px,
+      var(--surface-2) 14px,
+      var(--surface-2) 28px
+    );
+    border-bottom: 1px solid var(--border);
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--text-dim);
+    text-align: center;
+    padding: 24px;
+    line-height: 1.6;
+  }
+
+  .hero-figure .placeholder strong {
+    display: block;
+    color: var(--accent);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .hero-figure figcaption {
+    padding: 14px 20px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-dim);
+    line-height: 1.55;
+  }
+
+  /* Reproduce box */
+  .reproduce-box {
+    margin: 2em 0;
+    padding: 24px 28px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 8px 8px 0;
+  }
+
+  .reproduce-box h3 {
+    font-family: var(--mono);
+    font-size: 14px;
+    font-weight: 700;
+    margin: 0 0 10px;
+    color: var(--text);
+  }
+
+  .reproduce-box p {
+    font-size: 14px;
+    color: var(--text-body);
+    line-height: 1.65;
+    margin: 0 0 8px;
+  }
+
+  .reproduce-box a {
+    color: var(--accent);
+  }
+
+  /* CTA */
+  .post-cta {
+    margin: 48px auto 0;
+    max-width: 920px;
+    text-align: center;
+    padding: 48px 32px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+  }
+
+  .post-cta h2 {
+    font-family: var(--mono);
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--text);
+    letter-spacing: -0.3px;
+  }
+
+  .post-cta p {
+    color: var(--text-body);
+    font-size: 15px;
+    margin-bottom: 28px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 28px;
+    border-radius: 6px;
+    font-family: var(--sans);
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+  }
+
+  .btn-fire {
+    background: var(--accent);
+    color: white;
+  }
+
+  .btn-fire:hover {
+    background: #ff6d3d;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(255,87,34,0.25);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+
+  .btn-ghost:hover {
+    border-color: var(--border-hover);
+    background: var(--surface);
+  }
+
+  .cta-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  footer {
+    padding: 32px 0;
+    margin-top: 60px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+
+  footer a {
+    color: var(--text-dim);
+    text-decoration: none;
+    margin-left: 20px;
+    transition: color 0.2s;
+  }
+
+  footer a:hover { color: var(--accent); }
+
+  /* Responsive */
+  @media (max-width: 700px) {
+    .article-header { padding-top: 48px; }
+    .prose { font-size: 15px; }
+    .prose h2 { font-size: 20px; }
+    .nav-right a:not(.nav-cta):not(.current) { display: none; }
+    .cta-actions { flex-direction: column; align-items: stretch; }
+    footer { flex-direction: column; gap: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+  <nav>
+    <a href="/" class="logo">AGINOR</a>
+    <div class="nav-right">
+      <a href="mailto:tim@aginor.ai">Contact</a>
+      <a href="/extraction-test/" class="current">Extraction test</a>
+      <a href="mailto:tim@aginor.ai?subject=Aginor%3A%20Sample%20Request&body=Hi%20Tim%2C%0A%0AI'd%20like%20to%20see%20a%20sample%20batch.%0A%0ADoc%20type%20%2F%20use%20case%3A%20%0ACompany%3A%20%0A%0AThanks!" class="nav-cta">Request sample &rarr;</a>
+    </div>
+  </nav>
+
+  <header class="article-header">
+    <div class="eyebrow">Aginor · Extraction test · April 2026</div>
+    <h1>GPT-5.5 reported $405.9M of revenue on a document that says $95M. GPT-5.4 said $40.6M.</h1>
+    <p class="dek">Testing five frontier models on 148 adversarial insurance documents</p>
+  </header>
+
+  <article class="prose">
+
+    <p>TL;DR: on visually-degraded documents, GPT-5.4 and GPT-5.5 fabricate numeric values at 2.6 to 6.5 times the rate of Opus 4.7 and Sonnet 4.6 at matched default effort (all four with thinking off). When the Anthropic models can't read a field cleanly they return null, which is the right move. The OpenAI models fill in a plausible-looking number instead. Same 148 documents, same prompts, same scoring pipeline. Rerunning at matched HIGH and XHIGH reasoning effort (which is also where Gemini 3.1 Pro can fairly come back in, since it has no thinking-off mode) narrows the gap but doesn't close it: GPT-5.4 drops to 2.5% numeric hallucination at HIGH while Opus, Sonnet, and Gemini stay roughly flat. GPT-5.5 (released April 23) doesn't reproduce GPT-5.4's HIGH-effort improvement; its numeric rate is flat across effort levels and at HIGH actually exceeds GPT-5.4's.</p>
+
+    <div class="table-wrap">
+      <div class="table-caption">Hallucination rates at matched default effort (thinking off)</div>
+      <div class="table-scroll">
+        <table class="data">
+          <thead>
+            <tr>
+              <th>Metric</th>
+              <th>GPT-5.5</th>
+              <th>GPT-5.4</th>
+              <th>Opus 4.7</th>
+              <th>Sonnet 4.6</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Numeric hallucination rate</td><td><span class="hl">3.7%</span></td><td><span class="hl">3.9%</span></td><td>0.6%</td><td>1.4%</td></tr>
+            <tr><td>String hallucination rate</td><td><span class="hl">7.0%</span></td><td><span class="hl">6.9%</span></td><td>3.4%</td><td>4.3%</td></tr>
+            <tr><td>Fabricated values per document</td><td><span class="hl">3.9</span></td><td><span class="hl">3.5</span></td><td>1.5</td><td>2.2</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <p>Gemini 3.1 Pro isn't in this default-effort table. Its API has no thinking-off mode (default is HIGH), so a default-vs-default row wouldn't be a matched comparison. It reappears in the matched HIGH and XHIGH tables later on in this post.</p>
+
+    <div class="table-wrap">
+      <div class="table-caption">Paired-document comparison at default effort: GPT-5.4 vs each comparator</div>
+      <div class="table-scroll">
+        <table class="data">
+          <thead>
+            <tr>
+              <th>Comparator</th>
+              <th>GPT-5.4 worse</th>
+              <th>GPT-5.4 better</th>
+              <th>Ties</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>vs GPT-5.5</td><td>30</td><td>41</td><td>77</td></tr>
+            <tr><td>vs Opus 4.7</td><td><span class="hl">55</span></td><td>8</td><td>85</td></tr>
+            <tr><td>vs Sonnet 4.6</td><td><span class="hl">47</span></td><td>24</td><td>77</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <p>On <strong>47</strong> of the 148 documents, GPT-5.4 fabricates more than both Opus <em>and</em> Sonnet simultaneously; on only <strong>8</strong> does it fabricate less than both. The GPT-5.5 row is the closest comparison: it's the only paired matchup where GPT-5.4 wins (i.e., fabricates less) more often than it loses, which says less about GPT-5.4 improving and more about GPT-5.5 not.</p>
+
+    <p>Exact-match evals against flat field values won't catch any of this. The OpenAI outputs look fine in isolation: the currency is well-formed, the rows match the schema, and the numbers tie back to each other cleanly. You need labeled adversarial ground truth plus paired-comparison scoring across models to see this kind of failure at all, which is why I'm building Aginor.</p>
+
+    <h2>The $95M financial statement</h2>
+
+    <figure class="hero-figure">
+      <img src="images/hero-financial.png" alt="N4 financial statement crop. Revenue and cost-of-construction rendered in dark-grey on dark-grey, visually near-invisible. Gross Profit of $25,574,100 visible between them.">
+      <figcaption>N4 financial statement (second-hardest level). The $95M revenue line and the $69.4M cost-of-construction line are both typeset dark-grey on dark-grey (they're on the page, just almost invisible). Gross Profit sits visibly between them, which is presumably why it got picked up fine.</figcaption>
+    </figure>
+
+    <p>GPT-5.4 reported $40.6M of revenue. Four of its six income-statement lines came back off by millions of dollars, but the fabricated numbers were all internally consistent with each other. Revenue minus COGS equaled gross profit, the income tax worked out to a plausible effective rate, the whole thing added up cleanly. That's why a flat schema or arithmetic check won't catch it. Opus 4.7 and Sonnet 4.6 both returned null for revenue, COGS, and the rest of the hard-to-read lines, which is the correct move when you can't confidently extract a value. Gemini 3.1 Pro was the only model that read through the dark-grey-on-dark-grey rendering and returned the correct figures.</p>
+
+    <p>GPT-5.5 (released April 23) doubled down. Where GPT-5.4 was off by tens of millions, GPT-5.5 was off by hundreds: it reported revenue of $405.86M against an actual $95.0M (off by $310.9M) and cost of goods sold of $380.29M against an actual $69.4M (off by $310.9M). Same gross profit ($25.57M), arrived at by inflating both sides of the subtraction by the same $310.9M. The internal consistency that made GPT-5.4's output hard to catch still holds; the underlying fabrication is just about 5.7x bigger.</p>
+
+    <div class="table-wrap">
+      <div class="table-caption">Financial statement, actual vs extracted</div>
+      <div class="table-scroll">
+        <table class="data">
+          <thead>
+            <tr>
+              <th>Line item</th>
+              <th>Actual</th>
+              <th>GPT-5.5</th>
+              <th>GPT-5.4</th>
+              <th>Opus 4.7</th>
+              <th>Sonnet 4.6</th>
+              <th>Gemini 3.1 Pro</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Revenue</td><td>$95.0M</td><td><span class="hl">$405.9M</span></td><td><span class="hl">$40.6M</span></td><td>null</td><td>null</td><td>$95.0M</td></tr>
+            <tr><td>COGS</td><td>$69.4M</td><td><span class="hl">$380.3M</span></td><td><span class="hl">$15.0M</span></td><td>null</td><td>null</td><td>$69.4M</td></tr>
+            <tr><td>Interest expense</td><td>$3.02M</td><td>$3.01M</td><td><span class="hl">$1.02M</span></td><td>null</td><td>null</td><td>$3.02M</td></tr>
+            <tr><td>Net income</td><td>$6.00M</td><td><span class="hl">$5.88M</span></td><td><span class="hl">$7.55M</span></td><td>null</td><td>null</td><td>$6.00M</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <p>GPT-5.4 raw output, unedited:</p>
+
+<pre><code>"income_statement": {
+  "revenue": {
+    "gross_revenue": null,
+    "net_revenue": 40593800
+  },
+  "cost_of_goods_sold": 15019700,
+  "gross_profit": 25574100,
+  "operating_income": 11052200,
+  "interest_expense": 1017400,
+  "income_before_tax": 10034800,
+  "income_tax": 2485400,
+  "net_income": 7549400
+}</code></pre>
+
+    <p><strong>See it yourself:</strong> <a href="https://github.com/Tim-Aginor/nightmare-extraction-test/blob/main/examples/hallucinations/financial_statement_N4/source/financial_statement_70004.pdf" rel="noopener">rendered PDF</a> · <a href="https://github.com/Tim-Aginor/nightmare-extraction-test/blob/main/examples/hallucinations/financial_statement_N4/source/ground_truth.json" rel="noopener">ground truth</a> · <a href="https://github.com/Tim-Aginor/nightmare-extraction-test/tree/main/examples/hallucinations/financial_statement_N4/extractions" rel="noopener">all five model extractions (default / HIGH / XHIGH)</a></p>
+
+    <h2>The ACORD 45 property schedule</h2>
+
+    <figure class="hero-figure">
+      <img src="images/hero-acord45.png" alt="N5 ACORD 45 Building / Location Schedule. 9-row table with skewed page, blue bleed-through, red handwritten 'Need docs' annotation. Row 2 shows 'Rickerbacker Air Hub' with $14,800,000 building value.">
+      <figcaption>N5 ACORD 45 with skew, blue bleed-through, and a handwritten "Need docs" annotation. The rendered PDF also glyph-corrupts "Rickenbacker" into "Rickerbacker" as part of the N5 difficulty profile, while the canonical ground truth in the packet keeps the original spelling.</figcaption>
+    </figure>
+
+    <p>GPT-5.4 returned all 9 rows, but row 2 is fabricated: it reports "Rockford Air Hub" at $24.0M where the PDF shows "Rickerbacker Air Hub" at $14.8M (the N5 render glyph-corrupts the string "Rickenbacker"). Opus 4.7, Sonnet 4.6, and GPT-5.5 all returned "Rickenbacker Air Hub", the real airport, not the "Rickerbacker" string that their input shows. I can't tell from the outside whether those three models read the corrupted glyphs and pattern-matched to the real airport, or whether something cleaned it up before they ever saw it. Either way, they got the right name. GPT-5.4's output has no visual or phonetic relationship to anything on the page. Row 6 has a quieter version of the same issue: "Harrisburg Consolidation Hub" came back as "Hamburg Consolidation Hub." Per-row building values are wrong on 8 of the 9 rows, but the grand building total is exact to the dollar and the contents total is off by 0.4%, so spot-checking by summing columns won't catch the fabrication. Gemini skipped the per-location breakout and returned only an aggregate.</p>
+
+    <p>This is the case where GPT-5.5 visibly improves: same row, same input, it produces row 2 as "Rickenbacker Air Hub" at $14.8M. So the per-row fabrication on this specific document is a GPT-5.4-only failure mode. The aggregate numbers say the broader pattern (5.5 fabricating numbers at roughly the same rate as 5.4) is unchanged.</p>
+
+    <div class="table-wrap">
+      <div class="table-caption">ACORD 45, per-model behaviour</div>
+      <div class="table-scroll">
+        <table class="data">
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th>Locations</th>
+              <th>Row 2 name (PDF shows "Rickerbacker"; canonical is "Rickenbacker")</th>
+              <th>Row 2 value (truth: $14.8M)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>GPT-5.5</td><td>9</td><td>"Rickenbacker Air Hub" ✓</td><td>$14.8M ✓</td></tr>
+            <tr><td>GPT-5.4</td><td>9</td><td><span class="hl">"Rockford Air Hub"</span></td><td><span class="hl">$24.0M</span></td></tr>
+            <tr><td>Opus 4.7</td><td>9</td><td>"Rickenbacker Air Hub" ✓</td><td>$14.8M ✓</td></tr>
+            <tr><td>Sonnet 4.6</td><td>9</td><td>"Rickenbacker Air Hub" ✓</td><td>$14.8M ✓</td></tr>
+            <tr><td>Gemini 3.1 Pro</td><td>aggregate only</td><td>n/a</td><td>n/a</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <p>GPT-5.4 raw output (location 2 plus totals, unedited):</p>
+
+<pre><code>"building_location_2": "Rockford Air Hub",
+"building_location_2_building": 24000000,
+"building_location_2_contents": 7000000,
+"building_location_2_business_income": 5400000,
+"building_location_2_tiv": 36400000,
+"building_location_3": "Cleveland Distribution Center",
+"building_location_4": "Pittsburgh Regional Terminal",
+"building_location_5": "Philadelphia Cross-Dock",
+"building_location_6": "Hamburg Consolidation Hub",
+"building_location_7": "Toledo Service Center",
+"building_location_8": "Fleet Maintenance Center",
+"building_location_9": "Administrative Office",
+...
+"total_building": 54110000,
+"total_contents": 30200000</code></pre>
+
+    <p><strong>See it yourself:</strong> <a href="https://github.com/Tim-Aginor/nightmare-extraction-test/blob/main/examples/hallucinations/acord_45_N5/source/acord_45_70005.pdf" rel="noopener">rendered PDF</a> · <a href="https://github.com/Tim-Aginor/nightmare-extraction-test/blob/main/examples/hallucinations/acord_45_N5/source/ground_truth.json" rel="noopener">schedule ground truth</a> · <a href="https://github.com/Tim-Aginor/nightmare-extraction-test/blob/main/examples/hallucinations/acord_45_N5/source/packet_truth.json" rel="noopener">full packet ground truth</a> · <a href="https://github.com/Tim-Aginor/nightmare-extraction-test/tree/main/examples/hallucinations/acord_45_N5/extractions" rel="noopener">all five model extractions (default / HIGH / XHIGH)</a></p>
+
+    <h2>Reasoning level data</h2>
+
+    <p>I reran the 148-document test at three reasoning-effort levels for each model: default, HIGH, and XHIGH (Sonnet's XHIGH-equivalent is effort=max, its ceiling).</p>
+
+    <div class="table-wrap">
+      <div class="table-caption">Numeric hallucination rate by reasoning effort</div>
+      <div class="table-scroll">
+        <table class="data">
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th>Default</th>
+              <th>HIGH</th>
+              <th>XHIGH</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>GPT-5.5</td><td><span class="hl">3.7%</span></td><td><span class="hl">4.2%</span></td><td><span class="hl">3.9%</span></td></tr>
+            <tr><td>GPT-5.4</td><td><span class="hl">3.9%</span></td><td>2.5%</td><td>3.1%*</td></tr>
+            <tr><td>Opus 4.7</td><td>0.6%</td><td>0.7%</td><td>1.0%</td></tr>
+            <tr><td>Sonnet 4.6</td><td>1.4%</td><td>1.5%&dagger;</td><td>1.4%&Dagger;</td></tr>
+            <tr><td>Gemini 3.1 Pro</td><td>0.8%</td><td>1.2%</td><td>0.9%</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <div class="table-caption">String hallucination rate by reasoning effort</div>
+      <div class="table-scroll">
+        <table class="data">
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th>Default</th>
+              <th>HIGH</th>
+              <th>XHIGH</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>GPT-5.5</td><td><span class="hl">7.0%</span></td><td><span class="hl">6.3%</span></td><td><span class="hl">6.3%</span></td></tr>
+            <tr><td>GPT-5.4</td><td><span class="hl">6.9%</span></td><td>4.7%</td><td>2.7%*</td></tr>
+            <tr><td>Opus 4.7</td><td>3.4%</td><td>3.0%</td><td>4.3%</td></tr>
+            <tr><td>Sonnet 4.6</td><td>4.3%</td><td>3.9%&dagger;</td><td>4.6%&Dagger;</td></tr>
+            <tr><td>Gemini 3.1 Pro</td><td>2.6%</td><td>2.1%</td><td>2.4%</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <p><small>* GPT-5.4 XHIGH: n=146 (2 docs timed out). &dagger; Sonnet HIGH: n=147 (1 doc). &Dagger; Sonnet XHIGH: n=141 (7 docs). See "Excluded cells" below.</small></p>
+
+    <p>Thinking helps GPT-5.4 cleanly on string hallucination (6.9% &rarr; 4.7% &rarr; 2.7%) and messily on numeric (3.9% drops to 2.5% at HIGH, rebounds to 3.1% at XHIGH). GPT-5.5 doesn't improve; its numeric rate is flat across effort levels (3.7% / 4.2% / 3.9%) and at HIGH actually exceeds GPT-5.4's. On the string side, 5.5 nudges down (7.0% &rarr; 6.3%) and stops; where GPT-5.4 falls to 2.7% at XHIGH, GPT-5.5 stays at 6.3%. The other three models don't respond to the lever either: Opus, Sonnet, and Gemini show flat numeric rates across effort levels, and the small drifts go in the wrong direction (Opus 0.6% &rarr; 1.0%). Even if the 2 timed-out docs came back with 0 hallucinations, it doesn't help here: GPT-5.4 XHIGH still lands at 3.02%, above its own 2.45% HIGH rate.</p>
+
+    <p>At matched HIGH, GPT-5.4 fabricates numbers at 2.5% and GPT-5.5 at 4.2%, against Gemini 3.1 Pro's 1.2%, Opus 4.7's 0.7%, and Sonnet 4.6's 1.5%. The OpenAI/baseline gap narrows for GPT-5.4 (~2-4x depending on comparator) and widens for GPT-5.5 (~3-6x).</p>
+
+    <h2>What's actually in Nightmare</h2>
+
+    <p>148 documents across 5 difficulty levels (N1 clean digital up to N5 corruption plus handwriting plus cross-document mismatches), 9 categories spanning ACORDs, SOVs, loss runs in PDF/CSV/XLSX, dec pages, engineering reports, financial statements, driver schedules, narratives, and hybrid workbooks. The generator emits the PDF or XLSX and the ground-truth JSON in the same pass, so the labels are the same data that rendered the document. No labeling step. Prompts, schemas, and scoring code live in the <a href="https://github.com/Tim-Aginor/nightmare-extraction-test" rel="noopener">public repo</a>.</p>
+
+    <h2>Caveats</h2>
+
+    <h3>Sample size</h3>
+    <p>I ran one packet per difficulty level. That's enough for paired-document claims (same document, five models, same prompts) but not for academic-grade rate estimates. It's why I'm calling this a test, not a benchmark.</p>
+
+    <h3>Hallucination analyzer threshold</h3>
+    <p>The analyzer accepts strings of five or more tokens when at least 80% of the tokens match the source universe, so legitimate compounds like <code>"LOC-001: Preston Center Tower, 8117 Preston Road, Dallas, TX 75225"</code> pass through cleanly. The tradeoff is that one fabricated token can hide inside a long compound, which means the fabrication numbers undercount the OpenAI models (the high-fabrication side) rather than inflate them. Details in <code>scripts/hallucination_analysis.py</code>.</p>
+
+    <h3>Thinking defaults vary by provider</h3>
+    <p>The three providers disagree on what "default" means: Anthropic's Opus 4.7 and Sonnet 4.6 default to thinking off, OpenAI's GPT-5.4 and GPT-5.5 default to no reasoning_effort parameter (also thinking off), and Google's Gemini 3 defaults to HIGH with no thinking-off mode at all. That's why Gemini is out of the default-effort headline table. Running Gemini-at-HIGH against four thinking-off models wouldn't be a matched comparison. It reappears in the HIGH and XHIGH tables below, where all five models are at matched effort. If you want the unmatched default-vs-default view, read across the Default column in the per-effort tables. The <a href="https://github.com/Tim-Aginor/nightmare-extraction-test/blob/main/report.md#configuration" rel="noopener">raw report</a> has exact API parameter names and values per provider, plus the Anthropic-adaptive-is-opt-in clarification (no-thinking-param means no thinking, not adaptive).</p>
+    <p><small>Thanks to the anonymous reviewer who flagged this thinking-default gap on the original draft.</small></p>
+
+    <h3>Timeouts</h3>
+    <p>Ten HIGH/XHIGH extractions exceeded the 20-minute client timeout and were dropped from their cells: 7 Sonnet XHIGH, 1 Sonnet HIGH, 2 GPT-5.4 XHIGH. Pattern: long scan-heavy loss-run and driver-schedule PDFs from N4 and N5, plus one ACORD 127 at N5. Source PDFs are in the repo's <code>examples/timeouts/</code> folder; the pivot tables' footnotes give the adjusted n per affected cell.</p>
+
+    <h3>Failures are quiet</h3>
+    <p>Across all five models, 37% of extractions scored below 0.5 composite without ever tripping a catastrophic-error flag, and only 3% crossed the catastrophic threshold at all. Your production pipeline isn't going to break in any obvious way on these documents. It's going to degrade field by field, underneath whatever review threshold you've trained your reviewers on, and you won't notice unless you're actively looking.</p>
+
+    <h3>No hero model on raw accuracy</h3>
+    <p>Overall composite scores cluster at 0.56 to 0.62 across all five frontier models. The actual signal between these models lives in the fabrication rate, not in the composite and not in the catastrophic-flag count.</p>
+
+    <h3>Gemini's volume effect</h3>
+    <p>Gemini's low fabrication rate is partly a volume effect. It emits 27.6 strings and 26.7 numbers per document on average versus 32 to 40 for the other four, so it has fewer chances to be wrong on any given document. Reading the Gemini row as "safest model" is probably misreading what the numbers are actually measuring.</p>
+
+    <h2 id="work">Work with me</h2>
+
+    <p>If you're at an insurance carrier or brokerage, I generate labeled synthetic submission packets against your book at whatever volume you want. Ground truth comes out alongside the rendered document, in the same pass, every field, every location, every line item. No labeling step to staff, no vendor to coordinate with, no calibration calls. <a href="mailto:tim@aginor.ai?subject=Aginor%3A%20Sample%20Request&body=Hi%20Tim%2C%0A%0AI'd%20like%20to%20see%20a%20sample%20batch.%0A%0ADoc%20type%20%2F%20use%20case%3A%20%0ACompany%3A%20%0A%0AThanks!">Request a sample &rarr;</a></p>
+
+    <p>If you run a document-extraction platform, I'll size hard-case packets against the documents you actually work with, or port the generator to your vertical entirely (financial services, legal, healthcare, procurement, whatever you're on). The adversarial-pattern plumbing is already built, so porting is a template change, not a rebuild. <a href="mailto:tim@aginor.ai?subject=Aginor%3A%20Port%20to%20new%20vertical&body=Hi%20Tim%2C%0A%0AWe%20run%20a%20doc%20extraction%20platform%20and%20want%20to%20talk%20about%20porting%20the%20generator%20to%20our%20vertical.%0A%0ACompany%3A%20%0AVertical%20%2F%20domain%3A%20%0ADoc%20types%20we%20handle%3A%20%0ABiggest%20extraction%20pain%20points%3A%20%0A%0AThanks!">Talk about custom packets &rarr;</a></p>
+
+    <p>The full 148-document test set is available under research or commercial license. I can also generate at training scale or build custom test sets on request. <a href="mailto:tim@aginor.ai?subject=Nightmare%3A%20Licensing%20or%20research%20access&body=Hi%20Tim%2C%0A%0AI'd%20like%20access%20to%20(mark%20any%20that%20apply)%3A%0A%5B%20%5D%20Full%20148-doc%20test%20set%20(research%20license)%0A%5B%20%5D%20Commercial%20license%20(training%20%2F%20production%20use)%0A%5B%20%5D%20Detailed%20methodology%20notes%20%2B%20per-doc%20data%0A%0AName%20%2F%20affiliation%3A%20%0AIntended%20use%3A%20%0A%0AThanks!">Licensing or access &rarr;</a></p>
+
+    <h2 id="verify">Run it yourself</h2>
+
+    <div class="reproduce-box">
+      <h3>Sample packet + scoring pipeline</h3>
+      <p>Everything you need to reproduce the headline findings on the N1 easy packet is in the public repo (25 documents, ground truth, scoring engine, prompts): <a href="https://github.com/Tim-Aginor/nightmare-extraction-test" rel="noopener">nightmare-extraction-test</a>.</p>
+      <p>Match your extractor output to the schema in <code>prompts/</code>, then run <code>scripts/score.py</code> for the per-category composite scores and catastrophic-error counts, and <code>scripts/hallucination_analysis.py</code> for the fabrication pass.</p>
+      <p>Full hallucination tables, exact API settings per model, and per-model run counts (including timeout exclusions) live in the <a href="https://github.com/Tim-Aginor/nightmare-extraction-test/blob/main/report.md" rel="noopener">raw report</a>.</p>
+      <p><em>All data is synthetic: no real PII, no real policies, no real companies.</em></p>
+    </div>
+
+  </article>
+
+  <footer>
+    <span>&copy; 2026 Aginor</span>
+    <div>
+      <a href="/">Home</a>
+      <a href="mailto:tim@aginor.ai">Contact</a>
+    </div>
+  </footer>
+</div>
+
+<script>
+// Nav scroll state
+const nav = document.querySelector('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+}, { passive: true });
+</script>
+
+</body>
+</html>
