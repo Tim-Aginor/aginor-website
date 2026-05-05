@@ -19,7 +19,7 @@
 
 <!-- Open Graph -->
 <meta property="og:title" content="Nightmare | Testing five frontier models on 148 adversarial insurance documents">
-<meta property="og:description" content="GPT-5.4 and GPT-5.5 fabricate plausible numeric values at 2.6 to 6.5 times the rate of the Anthropic and Google frontier models at matched default effort on visually-degraded insurance documents.">
+<meta property="og:description" content="GPT-5.4 and GPT-5.5 fabricate plausible numeric values at 3 to 8 times the rate of the Anthropic and Google frontier models at matched default effort on visually-degraded insurance documents.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://www.aginor.ai/extraction-test/">
 <meta property="og:site_name" content="Aginor">
@@ -33,12 +33,12 @@
 <meta property="og:image:width" content="888">
 <meta property="og:image:height" content="498">
 <meta property="og:image:alt" content="Adversarial ACORD 45 property schedule, a skewed page with handwritten annotation used in the Nightmare test">
-<meta property="article:modified_time" content="2026-04-27">
+<meta property="article:modified_time" content="2026-05-05">
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Nightmare | Testing five frontier models on 148 adversarial insurance documents">
-<meta name="twitter:description" content="GPT-5.4 and GPT-5.5 fabricate plausible numeric values at 2.6 to 6.5 times the rate of the Anthropic and Google frontier models at matched default effort on visually-degraded insurance documents.">
+<meta name="twitter:description" content="GPT-5.4 and GPT-5.5 fabricate plausible numeric values at 3 to 8 times the rate of the Anthropic and Google frontier models at matched default effort on visually-degraded insurance documents.">
 <meta name="twitter:image" content="https://www.aginor.ai/extraction-test/images/hero-acord45.png">
 
 <!-- Structured Data: TechArticle for GEO/SEO -->
@@ -48,9 +48,9 @@
   "@type": "TechArticle",
   "headline": "GPT-5.5 reported $405.9M of revenue on a document that says $95M. GPT-5.4 said $40.6M.",
   "description": "GPT-5.5 reported $405.9M of revenue on a document that says $95M; GPT-5.4 said $40.6M on the same page. A test of five frontier models (GPT-5.5, GPT-5.4, Claude Opus 4.7, Claude Sonnet 4.6, Gemini 3.1 Pro) on 148 adversarial insurance documents generated with synthetic ground truth.",
-  "abstract": "GPT-5.4 and GPT-5.5 fabricate plausible numeric values at 2.6 to 6.5 times the rate of the Anthropic and Google frontier models at matched default effort on visually-degraded insurance documents. Paired-document analysis across 148 documents shows GPT-5.4 worse than both Opus 4.7 and Sonnet 4.6 on 47 of them and better than both on only 8. At matched HIGH and XHIGH reasoning effort, GPT-5.4's numeric rate falls but stays 3 to 4 times the Anthropic/Google baseline; GPT-5.5 does not reproduce GPT-5.4's HIGH-effort improvement and at HIGH actually exceeds GPT-5.4.",
+  "abstract": "GPT-5.4 and GPT-5.5 fabricate plausible numeric values at 3 to 8 times the rate of the Anthropic and Google frontier models at matched default effort on visually-degraded insurance documents. Paired-document analysis across 148 documents shows GPT-5.4 worse than both Opus 4.7 and Sonnet 4.6 on 43 of them and better than both on only 7. At matched HIGH and XHIGH reasoning effort, GPT-5.4's numeric rate falls but stays 2 to 4 times the Anthropic/Google baseline; GPT-5.5 does not reproduce GPT-5.4's HIGH-effort improvement and at HIGH actually exceeds GPT-5.4.",
   "datePublished": "2026-04-27",
-  "dateModified": "2026-04-27",
+  "dateModified": "2026-05-05",
   "inLanguage": "en",
   "url": "https://www.aginor.ai/extraction-test/",
   "mainEntityOfPage": {
@@ -640,14 +640,14 @@
   </nav>
 
   <header class="article-header">
-    <div class="eyebrow">Aginor · Extraction test · April 2026</div>
+    <div class="eyebrow">Aginor · Extraction test · April 2026 · Updated May 2026</div>
     <h1>GPT-5.5 reported $405.9M of revenue on a document that says $95M. GPT-5.4 said $40.6M.</h1>
     <p class="dek">Testing five frontier models on 148 adversarial insurance documents</p>
   </header>
 
   <article class="prose">
 
-    <p>TL;DR: on visually-degraded documents, GPT-5.4 and GPT-5.5 fabricate numeric values at 2.6 to 6.5 times the rate of Opus 4.7 and Sonnet 4.6 at matched default effort (all four with thinking off). When the Anthropic models can't read a field cleanly they return null, which is the right move. The OpenAI models fill in a plausible-looking number instead. Same 148 documents, same prompts, same scoring pipeline. Rerunning at matched HIGH and XHIGH reasoning effort (which is also where Gemini 3.1 Pro can fairly come back in, since it has no thinking-off mode) narrows the gap but doesn't close it: GPT-5.4 drops to 2.5% numeric hallucination at HIGH while Opus, Sonnet, and Gemini stay roughly flat. GPT-5.5 (released April 23) doesn't reproduce GPT-5.4's HIGH-effort improvement; its numeric rate is flat across effort levels and at HIGH actually exceeds GPT-5.4's.</p>
+    <p>TL;DR: on visually-degraded documents, GPT-5.4 and GPT-5.5 fabricate numeric values at 3 to 8 times the rate of Opus 4.7 and Sonnet 4.6 at matched default effort (all four with thinking off). When the Anthropic models can't read a field cleanly they return null, which is the right move. The OpenAI models fill in a plausible-looking number instead. Same 148 documents, same prompts, same scoring pipeline. Rerunning at matched HIGH and XHIGH reasoning effort (which is also where Gemini 3.1 Pro can fairly come back in, since it has no thinking-off mode) narrows the gap but doesn't close it: GPT-5.4 drops to 1.6% numeric hallucination at HIGH while Opus, Sonnet, and Gemini stay roughly flat. GPT-5.5 (released April 23) doesn't reproduce GPT-5.4's HIGH-effort improvement; its numeric rate is flat across effort levels and at HIGH actually exceeds GPT-5.4's.</p>
 
     <div class="table-wrap">
       <div class="table-caption">Hallucination rates at matched default effort (thinking off)</div>
@@ -663,9 +663,9 @@
             </tr>
           </thead>
           <tbody>
-            <tr><td>Numeric hallucination rate</td><td><span class="hl">3.7%</span></td><td><span class="hl">3.9%</span></td><td>0.6%</td><td>1.4%</td></tr>
-            <tr><td>String hallucination rate</td><td><span class="hl">7.0%</span></td><td><span class="hl">6.9%</span></td><td>3.4%</td><td>4.3%</td></tr>
-            <tr><td>Fabricated values per document</td><td><span class="hl">3.9</span></td><td><span class="hl">3.5</span></td><td>1.5</td><td>2.2</td></tr>
+            <tr><td>Numeric hallucination rate</td><td><span class="hl">2.8%</span></td><td><span class="hl">3.2%</span></td><td>0.4%</td><td>0.9%</td></tr>
+            <tr><td>String hallucination rate</td><td><span class="hl">5.1%</span></td><td><span class="hl">5.1%</span></td><td>2.0%</td><td>2.7%</td></tr>
+            <tr><td>Fabricated values per document</td><td><span class="hl">2.9</span></td><td><span class="hl">2.7</span></td><td>0.9</td><td>1.4</td></tr>
           </tbody>
         </table>
       </div>
@@ -686,15 +686,15 @@
             </tr>
           </thead>
           <tbody>
-            <tr><td>vs GPT-5.5</td><td>30</td><td>41</td><td>77</td></tr>
-            <tr><td>vs Opus 4.7</td><td><span class="hl">55</span></td><td>8</td><td>85</td></tr>
-            <tr><td>vs Sonnet 4.6</td><td><span class="hl">47</span></td><td>24</td><td>77</td></tr>
+            <tr><td>vs GPT-5.5</td><td>26</td><td>34</td><td>88</td></tr>
+            <tr><td>vs Opus 4.7</td><td><span class="hl">50</span></td><td>8</td><td>90</td></tr>
+            <tr><td>vs Sonnet 4.6</td><td><span class="hl">43</span></td><td>13</td><td>92</td></tr>
           </tbody>
         </table>
       </div>
     </div>
 
-    <p>On <strong>47</strong> of the 148 documents, GPT-5.4 fabricates more than both Opus <em>and</em> Sonnet simultaneously; on only <strong>8</strong> does it fabricate less than both. The GPT-5.5 row is the closest comparison: it's the only paired matchup where GPT-5.4 wins (i.e., fabricates less) more often than it loses, which says less about GPT-5.4 improving and more about GPT-5.5 not.</p>
+    <p>On <strong>43</strong> of the 148 documents, GPT-5.4 fabricates more than both Opus <em>and</em> Sonnet simultaneously; on only <strong>7</strong> does it fabricate less than both. The GPT-5.5 row is the closest comparison: it's the only paired matchup where GPT-5.4 wins (i.e., fabricates less) more often than it loses, which says less about GPT-5.4 improving and more about GPT-5.5 not.</p>
 
     <p>Exact-match evals against flat field values won't catch any of this. The OpenAI outputs look fine in isolation: the currency is well-formed, the rows match the schema, and the numbers tie back to each other cleanly. You need labeled adversarial ground truth plus paired-comparison scoring across models to see this kind of failure at all, which is why I'm building Aginor.</p>
 
@@ -823,11 +823,11 @@
             </tr>
           </thead>
           <tbody>
-            <tr><td>GPT-5.5</td><td><span class="hl">3.7%</span></td><td><span class="hl">4.2%</span></td><td><span class="hl">3.9%</span></td></tr>
-            <tr><td>GPT-5.4</td><td><span class="hl">3.9%</span></td><td>2.5%</td><td>3.1%*</td></tr>
-            <tr><td>Opus 4.7</td><td>0.6%</td><td>0.7%</td><td>1.0%</td></tr>
-            <tr><td>Sonnet 4.6</td><td>1.4%</td><td>1.5%&dagger;</td><td>1.4%&Dagger;</td></tr>
-            <tr><td>Gemini 3.1 Pro</td><td>0.8%</td><td>1.2%</td><td>0.9%</td></tr>
+            <tr><td>GPT-5.5</td><td><span class="hl">2.8%</span></td><td><span class="hl">3.3%</span></td><td><span class="hl">2.9%</span></td></tr>
+            <tr><td>GPT-5.4</td><td><span class="hl">3.2%</span></td><td>1.6%</td><td>2.1%*</td></tr>
+            <tr><td>Opus 4.7</td><td>0.4%</td><td>0.5%</td><td>0.6%</td></tr>
+            <tr><td>Sonnet 4.6</td><td>0.9%</td><td>1.0%&dagger;</td><td>0.9%&Dagger;</td></tr>
+            <tr><td>Gemini 3.1 Pro</td><td>0.5%</td><td>0.9%</td><td>0.5%</td></tr>
           </tbody>
         </table>
       </div>
@@ -846,11 +846,11 @@
             </tr>
           </thead>
           <tbody>
-            <tr><td>GPT-5.5</td><td><span class="hl">7.0%</span></td><td><span class="hl">6.3%</span></td><td><span class="hl">6.3%</span></td></tr>
-            <tr><td>GPT-5.4</td><td><span class="hl">6.9%</span></td><td>4.7%</td><td>2.7%*</td></tr>
-            <tr><td>Opus 4.7</td><td>3.4%</td><td>3.0%</td><td>4.3%</td></tr>
-            <tr><td>Sonnet 4.6</td><td>4.3%</td><td>3.9%&dagger;</td><td>4.6%&Dagger;</td></tr>
-            <tr><td>Gemini 3.1 Pro</td><td>2.6%</td><td>2.1%</td><td>2.4%</td></tr>
+            <tr><td>GPT-5.5</td><td><span class="hl">5.1%</span></td><td><span class="hl">4.4%</span></td><td><span class="hl">4.3%</span></td></tr>
+            <tr><td>GPT-5.4</td><td><span class="hl">5.1%</span></td><td>3.3%</td><td>2.1%*</td></tr>
+            <tr><td>Opus 4.7</td><td>2.0%</td><td>2.0%</td><td>2.7%</td></tr>
+            <tr><td>Sonnet 4.6</td><td>2.7%</td><td>2.2%&dagger;</td><td>2.3%&Dagger;</td></tr>
+            <tr><td>Gemini 3.1 Pro</td><td>1.1%</td><td>1.1%</td><td>0.9%</td></tr>
           </tbody>
         </table>
       </div>
@@ -858,9 +858,9 @@
 
     <p><small>* GPT-5.4 XHIGH: n=146 (2 docs timed out). &dagger; Sonnet HIGH: n=147 (1 doc). &Dagger; Sonnet XHIGH: n=141 (7 docs). See "Excluded cells" below.</small></p>
 
-    <p>Thinking helps GPT-5.4 cleanly on string hallucination (6.9% &rarr; 4.7% &rarr; 2.7%) and messily on numeric (3.9% drops to 2.5% at HIGH, rebounds to 3.1% at XHIGH). GPT-5.5 doesn't improve; its numeric rate is flat across effort levels (3.7% / 4.2% / 3.9%) and at HIGH actually exceeds GPT-5.4's. On the string side, 5.5 nudges down (7.0% &rarr; 6.3%) and stops; where GPT-5.4 falls to 2.7% at XHIGH, GPT-5.5 stays at 6.3%. The other three models don't respond to the lever either: Opus, Sonnet, and Gemini show flat numeric rates across effort levels, and the small drifts go in the wrong direction (Opus 0.6% &rarr; 1.0%). Even if the 2 timed-out docs came back with 0 hallucinations, it doesn't help here: GPT-5.4 XHIGH still lands at 3.02%, above its own 2.45% HIGH rate.</p>
+    <p>Thinking helps GPT-5.4 cleanly on string hallucination (5.1% &rarr; 3.3% &rarr; 2.1%) and messily on numeric (3.2% drops to 1.6% at HIGH, rebounds to 2.1% at XHIGH). GPT-5.5 doesn't improve; its numeric rate is flat across effort levels (2.8% / 3.3% / 2.9%) and at HIGH actually exceeds GPT-5.4's. On the string side, 5.5 nudges down (5.1% &rarr; 4.4%) and stops; where GPT-5.4 falls to 2.1% at XHIGH, GPT-5.5 stays at 4.3%. The other three models don't respond to the lever either: Opus, Sonnet, and Gemini show flat numeric rates across effort levels, and the small drifts go in the wrong direction (Opus 0.4% &rarr; 0.6%). Even if the 2 timed-out docs came back with 0 hallucinations, it doesn't help here: GPT-5.4 XHIGH still lands at 2.05%, above its own 1.60% HIGH rate.</p>
 
-    <p>At matched HIGH, GPT-5.4 fabricates numbers at 2.5% and GPT-5.5 at 4.2%, against Gemini 3.1 Pro's 1.2%, Opus 4.7's 0.7%, and Sonnet 4.6's 1.5%. The OpenAI/baseline gap narrows for GPT-5.4 (~2-4x depending on comparator) and widens for GPT-5.5 (~3-6x).</p>
+    <p>At matched HIGH, GPT-5.4 fabricates numbers at 1.6% and GPT-5.5 at 3.3%, against Gemini 3.1 Pro's 0.9%, Opus 4.7's 0.5%, and Sonnet 4.6's 1.0%. The OpenAI/baseline gap narrows for GPT-5.4 (~2-3x) and widens for GPT-5.5 (~3-7x).</p>
 
     <h2>What's actually in Nightmare</h2>
 
@@ -877,15 +877,16 @@
     <h3>Thinking defaults vary by provider</h3>
     <p>The three providers disagree on what "default" means: Anthropic's Opus 4.7 and Sonnet 4.6 default to thinking off, OpenAI's GPT-5.4 and GPT-5.5 default to no reasoning_effort parameter (also thinking off), and Google's Gemini 3 defaults to HIGH with no thinking-off mode at all. That's why Gemini is out of the default-effort headline table. Running Gemini-at-HIGH against four thinking-off models wouldn't be a matched comparison. It reappears in the HIGH and XHIGH tables below, where all five models are at matched effort. If you want the unmatched default-vs-default view, read across the Default column in the per-effort tables. The <a href="https://github.com/Tim-Aginor/nightmare-extraction-test/blob/main/report.md#configuration" rel="noopener">raw report</a> has exact API parameter names and values per provider, plus the Anthropic-adaptive-is-opt-in clarification (no-thinking-param means no thinking, not adaptive).</p>
     <p><small>Thanks to the anonymous reviewer who flagged this thinking-default gap on the original draft.</small></p>
+    <p><small>Thanks to Apurv Gandhi at Reducto for catching ghost data in the Excel ground-truth files that were inflating the hallucination rates. All numbers above reflect the cleaned data (refreshed 2026-05-05).</small></p>
 
     <h3>Timeouts</h3>
     <p>Ten HIGH/XHIGH extractions exceeded the 20-minute client timeout and were dropped from their cells: 7 Sonnet XHIGH, 1 Sonnet HIGH, 2 GPT-5.4 XHIGH. Pattern: long scan-heavy loss-run and driver-schedule PDFs from N4 and N5, plus one ACORD 127 at N5. Source PDFs are in the repo's <code>examples/timeouts/</code> folder; the pivot tables' footnotes give the adjusted n per affected cell.</p>
 
     <h3>Failures are quiet</h3>
-    <p>Across all five models, 37% of extractions scored below 0.5 composite without ever tripping a catastrophic-error flag, and only 3% crossed the catastrophic threshold at all. Your production pipeline isn't going to break in any obvious way on these documents. It's going to degrade field by field, underneath whatever review threshold you've trained your reviewers on, and you won't notice unless you're actively looking.</p>
+    <p>Across all five models, 36% of extractions scored below 0.5 composite without ever tripping a catastrophic-error flag, and only 1% crossed the catastrophic threshold at all. Your production pipeline isn't going to break in any obvious way on these documents. It's going to degrade field by field, underneath whatever review threshold you've trained your reviewers on, and you won't notice unless you're actively looking.</p>
 
     <h3>No hero model on raw accuracy</h3>
-    <p>Overall composite scores cluster at 0.56 to 0.62 across all five frontier models. The actual signal between these models lives in the fabrication rate, not in the composite and not in the catastrophic-flag count.</p>
+    <p>Overall composite scores cluster at 0.59 to 0.65 across all five frontier models. The actual signal between these models lives in the fabrication rate, not in the composite and not in the catastrophic-flag count.</p>
 
     <h3>Gemini's volume effect</h3>
     <p>Gemini's low fabrication rate is partly a volume effect. It emits 27.6 strings and 26.7 numbers per document on average versus 32 to 40 for the other four, so it has fewer chances to be wrong on any given document. Reading the Gemini row as "safest model" is probably misreading what the numbers are actually measuring.</p>
