@@ -12,22 +12,22 @@
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aginor | Synthetic Training Data for AI Agents</title>
-<meta name="description" content="Aginor builds synthetic insurance documents and security logs for training AI agents. Broken tables, scan artifacts, and attack scenarios buried in noise, with ground-truth labels attached.">
-<meta name="keywords" content="synthetic training data, AI agent training data, synthetic insurance documents, synthetic security logs, document extraction training data, adversarial training data, labeled training data, ACORD form data, Okta log simulation, AI agent testing">
+<title>Aginor | Adversarial Synthetic Data for AI Document Extraction</title>
+<meta name="description" content="Aginor builds adversarial synthetic data for AI document extraction. Broken tables, corrupted fonts, scan artifacts, and carrier-specific layouts, with ground-truth labels attached.">
+<meta name="keywords" content="adversarial synthetic data, AI document extraction, synthetic insurance documents, document extraction evaluation, IDP testing data, ACORD form data, adversarial training data, synthetic training data, labeled training data, synthetic evaluation data">
 <link rel="canonical" href="https://www.aginor.ai/">
 
 <!-- Open Graph -->
-<meta property="og:title" content="Aginor | Synthetic Training Data for AI Agents">
-<meta property="og:description" content="Synthetic insurance documents and security logs with ground-truth labels. The messy, broken, real-looking data your AI agents need to train on.">
+<meta property="og:title" content="Aginor | Adversarial Synthetic Data for AI Document Extraction">
+<meta property="og:description" content="Adversarial synthetic documents for AI extraction pipelines. The messy, broken, real-looking data your agents choke on in production, with labels already attached.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.aginor.ai/">
 <meta property="og:site_name" content="Aginor">
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Aginor | Synthetic Training Data for AI Agents">
-<meta name="twitter:description" content="Synthetic insurance documents and security logs with ground-truth labels. The messy, broken, real-looking data your AI agents need to train on.">
+<meta name="twitter:title" content="Aginor | Adversarial Synthetic Data for AI Document Extraction">
+<meta name="twitter:description" content="Adversarial synthetic documents for AI extraction pipelines. The messy, broken, real-looking data your agents choke on in production, with labels already attached.">
 
 <!-- Structured Data -->
 <script type="application/ld+json">
@@ -36,7 +36,7 @@
   "@type": "Organization",
   "name": "Aginor",
   "url": "https://www.aginor.ai",
-  "description": "Aginor builds synthetic training data for AI agents. Adversarial insurance documents and security logs with ground-truth labels.",
+  "description": "Aginor builds adversarial synthetic data for AI document extraction. Insurance documents with broken tables, scan artifacts, and carrier-specific layouts, with ground-truth labels attached.",
   "founder": {
     "@type": "Person",
     "name": "Tim Michaud",
@@ -658,8 +658,6 @@
   /* Founder */
   .founder-section {
     padding: 48px 0;
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
     margin-bottom: 80px;
   }
 
@@ -783,7 +781,6 @@
 
   footer {
     padding: 32px 0;
-    border-top: 1px solid var(--border);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -822,11 +819,52 @@
     transform: translateY(0);
   }
 
+  .also-available {
+    margin-top: 40px;
+  }
+
+  .also-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+  }
+
+  .also-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .also-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px 18px;
+  }
+
+  .also-item h4 {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .also-item p {
+    font-size: 12px;
+    color: var(--text-body);
+    line-height: 1.55;
+  }
+
   /* Responsive */
   @media (max-width: 700px) {
     .problem-grid { grid-template-columns: 1fr; }
     .vert-cards-v2 { grid-template-columns: 1fr; }
     .vert-stat-row { grid-template-columns: repeat(3, 1fr); }
+    .also-grid { grid-template-columns: 1fr; }
     .numbers-row { grid-template-columns: repeat(2, 1fr); }
     .how-steps { flex-direction: column; align-items: center; }
     .how-step::after { display: none !important; }
@@ -854,8 +892,8 @@
 
   <!-- Hero -->
   <section class="hero">
-    <h1>Synthetic <span class="hl">training data</span> for AI document extraction and security agents</h1>
-    <p class="hero-sub">We build synthetic insurance documents and security logs. Broken tables, corrupted fonts, scan artifacts, carrier-specific layouts, attack scenarios buried in noise. The stuff your agents choke on in production, with labels already attached.</p>
+    <h1><span class="hl">Adversarial</span> synthetic data for AI document extraction</h1>
+    <p class="hero-sub">We build the synthetic documents your pipeline chokes on. Broken tables, corrupted fonts, scan artifacts, layout variants, handwritten annotations. With ground-truth labels already attached.</p>
     <div class="hero-actions">
       <a href="mailto:tim@aginor.ai?subject=Aginor%20%E2%80%94%20Sample%20Request&body=Hi%20Tim%2C%0A%0AI'd%20like%20to%20see%20a%20sample%20batch.%0A%0ADoc%20type%20%2F%20use%20case%3A%20%0ACompany%3A%20%0A%0AThanks!" class="btn btn-fire">Request a sample</a>
       <a href="mailto:tim@aginor.ai?subject=Aginor%20%E2%80%94%20Intro%20Request&body=Hi%20Tim%2C%0A%0AI'd%20like%20to%20chat%20about%20what%20you're%20building.%0A%0ACompany%3A%20%0AWhat%20we're%20working%20on%3A%20%0A%0AThanks!" class="btn btn-ghost">Talk to founder</a>
@@ -864,24 +902,23 @@
 
   <!-- The Problem -->
   <section class="problem-section">
-    <div class="section-label">The problem</div>
-    <h2>Your AI agents can't train on data that looks like what they'll actually see</h2>
+    <h2>Your AI agents can't handle data that looks like what they'll actually see</h2>
     <div class="problem-grid">
       <div class="problem-card">
-        <h3>Real data is off-limits</h3>
-        <p>HIPAA, SOC2, carrier agreements. The documents your agent needs to handle are the ones you can't legally keep or reuse for training.</p>
+        <h3>Customer data is off-limits</h3>
+        <p>HIPAA, SOC2, DPAs. The hard cases you'd most want to regression-test against are the ones you can't legally keep, reuse, or share with a new model vendor.</p>
       </div>
       <div class="problem-card">
-        <h3>LLM synthetic data doesn't break anything</h3>
-        <p>Teams that try it get clean, self-consistent docs. The agent looks great in eval, then falls apart on real inputs with real formatting problems.</p>
+        <h3>Edge cases multiply with every customer</h3>
+        <p>Every new customer brings template variants, scan quality you haven't seen, field combinations your prompt didn't anticipate. The long tail outpaces any internal labeling effort.</p>
       </div>
       <div class="problem-card">
-        <h3>Human labeling hits a ceiling fast</h3>
-        <p>SME hourly rates, weeks of turnaround. You get maybe a few hundred labeled docs before the budget or the timeline kills you, and that's nowhere near production volume.</p>
+        <h3>Model upgrades shift pipeline behavior</h3>
+        <p>A new frontier model drops and your numbers change. Without a fixed adversarial corpus you can re-run, you can't tell whether the upgrade helped, hurt, or broke specific document types.</p>
       </div>
       <div class="problem-card">
-        <h3>Format explosion</h3>
-        <p>Carriers format differently, lines of business have different fields, and every scan introduces different artifacts. The combinations multiply faster than any labeling team can keep up.</p>
+        <h3>Schema and query ambiguity</h3>
+        <p>"Premium" means three different things across forms. Field paths don't match what the model emits. You need synthetic data built around the ambiguous cases to know whether your pipeline survives them.</p>
       </div>
     </div>
   </section>
@@ -900,23 +937,11 @@
       </div>
     </div>
 
-    <div class="quote-secondary">
-      <p class="quote-text">I used the data to validate a patent-pending authorization framework against real enterprise access patterns. <em>The quality of the synthetic data was good enough to build production AI on</em> &mdash; that's an extremely high bar.</p>
-      <div class="quote-attr">
-        <div class="quote-attr-line"></div>
-        <div class="quote-attr-info">
-          <strong>Design partner, AI Security</strong>
-          Built directly on top of the platform
-        </div>
-      </div>
-    </div>
   </section>
 
 
   <!-- Verticals: expanded -->
   <section class="vert-section reveal">
-    <div class="section-label section-label-center">What we generate</div>
-
     <div class="vert-cards-v2">
       <!-- Insurance -->
       <div class="vert-card-v2">
@@ -1027,16 +1052,33 @@
         </div>
       </div>
     </div>
+
+    <div class="also-available">
+      <div class="also-label">Also available</div>
+      <div class="also-grid">
+        <div class="also-item">
+          <h4>Invoice clone-and-variants</h4>
+          <p>Take a known hard doc and get back variants with both the underlying data and the visual format swapped out. Expands edge-case coverage and proves the model is parsing, not memorizing the original.</p>
+        </div>
+        <div class="also-item">
+          <h4>10Q query-ambiguity sets</h4>
+          <p>Quarterly filings paired with worksheets designed to probe how your pipeline handles ambiguous queries and schema-doc mismatches.</p>
+        </div>
+        <div class="also-item">
+          <h4>Custom doc types, any volume</h4>
+          <p>Your hard cases, generated to spec at whatever volume you need.</p>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- How it works -->
   <section class="how-section reveal">
-    <div class="section-label section-label-center">How it works</div>
     <div class="how-steps">
       <div class="how-step">
         <div class="step-num">01</div>
         <h4>Define scope</h4>
-        <p>Tell us the doc type, carrier format, or attack scenarios you care about, and which edge cases matter most.</p>
+        <p>Tell us the doc type, format variants, and edge cases that matter most for your pipeline.</p>
       </div>
       <div class="how-step">
         <div class="step-num">02</div>
@@ -1045,30 +1087,8 @@
       </div>
       <div class="how-step">
         <div class="step-num">03</div>
-        <h4>You train</h4>
-        <p>Same idea as computer vision: we placed the data, so we already know what's in it. Every file ships with ground truth. No annotation step, no SME bottleneck.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Numbers -->
-  <section class="numbers-section reveal">
-    <div class="numbers-row">
-      <div class="num-card">
-        <span class="num-val num-val-orange">65</span>
-        <span class="num-label">extraction-breaking<br>patterns</span>
-      </div>
-      <div class="num-card">
-        <span class="num-val num-val-blue">42</span>
-        <span class="num-label">attack<br>scenarios</span>
-      </div>
-      <div class="num-card">
-        <span class="num-val num-val-green">82</span>
-        <span class="num-label">carrier<br>templates</span>
-      </div>
-      <div class="num-card">
-        <span class="num-val num-val-white">56</span>
-        <span class="num-label">visual<br>variants</span>
+        <h4>You test</h4>
+        <p>Same idea as computer vision: we placed the data, so we already know what's in it. Every file comes with ground truth. No annotation step, no SME bottleneck.</p>
       </div>
     </div>
   </section>
@@ -1077,16 +1097,16 @@
   <section class="founder-section reveal">
     <div class="founder-inner">
       <div class="founder-name">Tim Michaud, Founder</div>
-      <div class="founder-meta">YC Alum &middot; Previously Staff Security Eng @ Moveworks (acq. ServiceNow, $2.85B)</div>
-      <p class="founder-narrative">I <strong>shipped 250+ AI agents to Fortune 500 companies</strong> at Moveworks and watched them break on real-world inputs. Before that I spent a decade in security research finding bugs in Apple, Chrome, and Qualcomm. Aginor came from putting those two things together: I know what production data does to agents, and I know how to generate the inputs that break them.</p>
+      <div class="founder-meta">YC Alum &middot; Previously Staff Security Eng @ Moveworks (acq. ServiceNow)</div>
+      <p class="founder-narrative">At Moveworks I spent years <strong>breaking 250+ AI agents serving Fortune 500 companies</strong> as the security eng on those rollouts. Before that I spent a decade in security research finding bugs in Apple, Chrome, and Qualcomm. Aginor came from putting those two things together: I know what production data does to agents, and I know how to generate the inputs that break them.</p>
     </div>
   </section>
 
 
   <!-- Bottom CTA -->
   <section class="bottom-cta reveal">
-    <h2>Get sample synthetic training data</h2>
-    <p>Tell us your doc type or attack scenario and we'll generate a sample batch with labels.</p>
+    <h2>Get sample adversarial synthetic data</h2>
+    <p>Tell us your doc type and edge cases, and we'll generate a sample batch with labels.</p>
     <a href="mailto:tim@aginor.ai?subject=Aginor%20%E2%80%94%20Sample%20Request&body=Hi%20Tim%2C%0A%0AI'd%20like%20to%20see%20a%20sample%20batch.%0A%0ADoc%20type%20%2F%20use%20case%3A%20%0ACompany%3A%20%0A%0AThanks!" class="btn btn-fire">Request sample</a>
   </section>
 
