@@ -33,7 +33,7 @@
 <meta property="og:image:width" content="888">
 <meta property="og:image:height" content="498">
 <meta property="og:image:alt" content="Adversarial ACORD 45 property schedule, a skewed page with handwritten annotation used in the Nightmare test">
-<meta property="article:modified_time" content="2026-05-14">
+<meta property="article:modified_time" content="2026-05-18">
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
@@ -50,7 +50,7 @@
   "description": "GPT-5.5 reported $35.2M of revenue on a document that says $42M; GPT-5.4 said $21.6M on the same page; Opus 4.7, Sonnet 4.6, and Gemini 3.1 Pro all returned $42M. A test of five frontier models (GPT-5.5, GPT-5.4, Claude Opus 4.7, Claude Sonnet 4.6, Gemini 3.1 Pro) on 148 adversarial insurance documents generated with synthetic ground truth.",
   "abstract": "GPT-5.4 and GPT-5.5 hallucinate plausible numeric values at 2 to 3 times the rate of the Anthropic and Google frontier models at matched default effort on visually-degraded insurance documents. Paired-document analysis across 148 documents shows GPT-5.4 worse than all three matched-thinking-off comparators (GPT-5.5, Opus 4.7, Sonnet 4.6) on 27 of them and better than all three on only 5. At matched HIGH and XHIGH reasoning effort, GPT-5.4's numeric rate drops 3 percentage points but stays well above the Anthropic and Google baseline; GPT-5.5 does not reproduce GPT-5.4's HIGH-effort improvement and at HIGH and XHIGH actually exceeds GPT-5.4.",
   "datePublished": "2026-04-27",
-  "dateModified": "2026-05-14",
+  "dateModified": "2026-05-18",
   "inLanguage": "en",
   "url": "https://www.aginor.ai/extraction-test/",
   "mainEntityOfPage": {
@@ -730,9 +730,10 @@
 
     <h2>The $42M financial statement</h2>
 
-    <p>The N3 financial statement reports $42.0M of annual revenue. Both OpenAI models read the visible gross-profit line correctly at $19.56M, then hallucinated the revenue and COGS lines underneath it. GPT-5.5 reported $35.21M of revenue and $15.66M of COGS. Those two numbers subtract to exactly $19.56M, the correct gross profit. The arithmetic ties out; a flat schema or sanity-check pipeline won't catch it. GPT-5.4 went further: it reported $21.65M of revenue (off by $20.4M, almost half the real value) and a net income of $1.67M (off by 48% from the actual $3.22M). Opus 4.7, Sonnet 4.6, and Gemini 3.1 Pro all returned the correct $42.0M revenue. Opus and Gemini got every line item exact; Sonnet's net income came back $7,500 light.</p>
+    <p>The N3 financial statement reports $42.0M of annual revenue. Both OpenAI models read the visible gross-profit line correctly at $19.56M, then hallucinated the revenue and COGS lines underneath it. GPT-5.5 reported $35.21M of revenue and $15.66M of COGS. Those two numbers subtract to exactly $19.56M, the correct gross profit. The arithmetic ties out; a flat schema or sanity-check pipeline won't catch it. GPT-5.4 went further: it reported $21.65M of revenue (off by $20.4M, almost half the real value) and a net income of $1.67M (off by 48% from the actual $3.22M). Opus 4.7, Sonnet 4.6, and Gemini 3.1 Pro all returned the correct $42.0M revenue. Opus and Gemini got every line item exact; Sonnet's net income came back $7,500 over and its interest expense $500 light.</p>
 
     <p>When the Anthropic models can't read a value cleanly they return null. They didn't have to here on N3, but they do on harder N4 and N5 documents elsewhere in the corpus. The OpenAI failure mode is the opposite: fabricate a plausible-looking number and tie the rest of the income statement back to it.</p>
+
 
     <div class="table-wrap">
       <div class="table-caption">Financial statement, actual vs extracted (default effort)</div>
