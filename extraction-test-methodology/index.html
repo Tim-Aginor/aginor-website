@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PDYCSY9R8Z"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-PDYCSY9R8Z');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How the Nightmare numbers are made | Methodology of the Aginor extraction test</title>
+<meta name="description" content="A methodology companion to the Nightmare extraction test: how the per-packet ground truth is built, why the headline rate is precision, what the recall view shows, and what changed from v0 to v1.">
+<meta name="keywords" content="insurance document extraction, methodology, hallucination measurement, recall, precision, synthetic ground truth, ACORD forms, frontier model evaluation">
+<meta name="author" content="Tim Michaud">
+<link rel="canonical" href="https://www.aginor.ai/extraction-test-methodology/">
+
+<!-- Open Graph -->
+<meta property="og:title" content="How the Nightmare numbers are made | Methodology of the Aginor extraction test">
+<meta property="og:description" content="Universe construction, tolerance, recall view, and what changed from v0 to v1.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.aginor.ai/extraction-test-methodology/">
+<meta property="og:site_name" content="Aginor">
+<meta property="article:published_time" content="2026-05-11">
+<meta property="article:author" content="Tim Michaud">
+<meta property="article:section" content="AI Evaluation">
+<meta property="article:tag" content="methodology">
+<meta property="article:tag" content="hallucination measurement">
+<meta property="article:tag" content="insurance document extraction">
+<meta property="og:image" content="https://www.aginor.ai/extraction-test/images/hero-acord45.png">
+<meta property="og:image:width" content="888">
+<meta property="og:image:height" content="498">
+<meta property="og:image:alt" content="Adversarial ACORD 45 property schedule, a skewed page with handwritten annotation used in the Nightmare test">
+<meta property="article:modified_time" content="2026-05-18">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="How the Nightmare numbers are made | Methodology of the Aginor extraction test">
+<meta name="twitter:description" content="Universe construction, tolerance, recall view, and what changed from v0 to v1.">
+<meta name="twitter:image" content="https://www.aginor.ai/extraction-test/images/hero-acord45.png">
+
+<!-- Structured Data: TechArticle for GEO/SEO -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "How the Nightmare numbers are made",
+  "description": "A methodology companion to the Nightmare extraction test: how the per-packet ground truth is built, why the headline rate is precision, what the recall view shows, and what changed from v0 to v1.",
+  "datePublished": "2026-05-11",
+  "dateModified": "2026-05-18",
+  "inLanguage": "en",
+  "url": "https://www.aginor.ai/extraction-test-methodology/",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.aginor.ai/extraction-test-methodology/"
+  },
+  "isPartOf": {
+    "@type": "TechArticle",
+    "url": "https://www.aginor.ai/extraction-test/",
+    "name": "Nightmare Extraction Test"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Tim Michaud",
+    "jobTitle": "Founder",
+    "affiliation": {
+      "@type": "Organization",
+      "name": "Aginor",
+      "url": "https://www.aginor.ai"
+    }
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Aginor",
+    "url": "https://www.aginor.ai"
+  },
+  "about": [
+    {"@type": "Thing", "name": "Hallucination measurement methodology"},
+    {"@type": "Thing", "name": "Insurance document extraction"},
+    {"@type": "Thing", "name": "Synthetic ground truth"},
+    {"@type": "Thing", "name": "Large language model evaluation"}
+  ],
+  "keywords": "methodology, ground truth construction, recall, precision, hallucination measurement, insurance document extraction, ACORD forms, synthetic ground truth"
+}
+</script>
+
+<!-- Structured Data: BreadcrumbList -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Aginor", "item": "https://www.aginor.ai/"},
+    {"@type": "ListItem", "position": 2, "name": "Nightmare Extraction Test", "item": "https://www.aginor.ai/extraction-test/"},
+    {"@type": "ListItem", "position": 3, "name": "Methodology", "item": "https://www.aginor.ai/extraction-test-methodology/"}
+  ]
+}
+</script>
+
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #08080c;
+    --surface: #0f0f14;
+    --surface-2: #16161d;
+    --border: #1e1e28;
+    --border-hover: #2a2a38;
+    --text: #dcdce0;
+    --text-body: #a0a0aa;
+    --text-dim: #66666e;
+    --accent: #ff5722;
+    --accent-glow: rgba(255, 87, 34, 0.15);
+    --green: #00d97e;
+    --green-dim: rgba(0, 217, 126, 0.1);
+    --blue: #4a9eff;
+    --blue-dim: rgba(74, 158, 255, 0.1);
+    --mono: 'Space Mono', monospace;
+    --sans: 'Inter', -apple-system, sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    line-height: 1.6;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page {
+    max-width: 984px;
+    margin: 0 auto;
+    padding: 0 32px;
+    position: relative;
+    z-index: 1;
+  }
+
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    padding: 28px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: padding 0.3s, background 0.3s;
+  }
+
+  nav.scrolled {
+    padding: 16px 0;
+    background: rgba(8, 8, 12, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    margin: 0 -32px;
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+
+  .logo {
+    font-family: var(--mono);
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--text);
+    letter-spacing: -0.5px;
+    text-decoration: none;
+  }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .nav-right a {
+    font-size: 13px;
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-right a:hover { color: var(--text); }
+  .nav-right a.current { color: var(--text); }
+
+  .nav-cta {
+    font-family: var(--mono) !important;
+    font-size: 12px !important;
+    color: var(--accent) !important;
+    border: 1px solid rgba(255,87,34,0.3);
+    padding: 6px 14px;
+    border-radius: 4px;
+    transition: all 0.2s !important;
+  }
+
+  .nav-cta:hover {
+    background: var(--accent-glow) !important;
+    border-color: var(--accent) !important;
+  }
+
+  .article-header {
+    padding: 72px 0 32px;
+    max-width: 920px;
+    margin: 0 auto;
+  }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 20px;
+  }
+
+  .article-header h1 {
+    font-family: var(--mono);
+    font-size: clamp(28px, 4.2vw, 44px);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -1px;
+    color: var(--text);
+    margin-bottom: 24px;
+  }
+
+  .dek {
+    font-family: var(--mono);
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--text-body);
+    padding: 18px 20px;
+    border-left: 2px solid var(--accent);
+    background: var(--accent-glow);
+    border-radius: 0 6px 6px 0;
+  }
+
+  .article-meta {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+
+  .article-meta span strong {
+    color: var(--text-body);
+    font-weight: 600;
+  }
+
+  .prose {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 32px 0 48px;
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--text-body);
+  }
+
+  .prose > * + * { margin-top: 1.1em; }
+
+  .prose h2 {
+    font-family: var(--mono);
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    color: var(--text);
+    margin-top: 3em;
+    margin-bottom: 0.6em;
+    scroll-margin-top: 80px;
+  }
+
+  .prose h2:first-child { margin-top: 0; }
+
+  .prose .toc {
+    position: static;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 6px 18px;
+    padding: 12px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    font-family: var(--mono);
+    font-size: 13px;
+  }
+  .prose .toc-label {
+    font-size: 10px;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-right: 4px;
+  }
+  .prose .toc a {
+    color: var(--text-body);
+    border-bottom: none;
+  }
+  .prose .toc a:hover { color: var(--accent); }
+
+  .prose h3 {
+    font-family: var(--mono);
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+    margin-top: 2em;
+    margin-bottom: 0.4em;
+  }
+
+  .prose p { color: var(--text-body); }
+
+  .prose em {
+    color: var(--text);
+    font-style: italic;
+  }
+
+  .prose strong { color: var(--text); font-weight: 600; }
+
+  .prose a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255,87,34,0.3);
+    transition: border-color 0.2s;
+  }
+
+  .prose a:hover { border-color: var(--accent); }
+
+  .prose code {
+    font-family: var(--mono);
+    font-size: 0.88em;
+    background: var(--surface-2);
+    color: var(--text);
+    padding: 2px 6px;
+    border-radius: 3px;
+    border: 1px solid var(--border);
+  }
+
+  .prose pre {
+    font-family: var(--mono);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 18px 20px;
+    overflow-x: auto;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .prose pre code {
+    background: transparent;
+    border: none;
+    padding: 0;
+    font-size: inherit;
+  }
+
+  .prose blockquote {
+    border-left: 2px solid var(--border-hover);
+    padding: 4px 0 4px 20px;
+    color: var(--text-dim);
+    font-style: italic;
+  }
+
+  .def {
+    position: relative;
+    border-bottom: 1px dashed var(--text-dim);
+    cursor: help;
+    outline: none;
+  }
+  .def:hover { border-bottom-color: var(--accent); }
+
+  .def-tip {
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%);
+    width: 380px;
+    max-width: min(90vw, 380px);
+    background: var(--surface);
+    border: 1px solid var(--border-hover);
+    border-left: 2px solid var(--accent);
+    border-radius: 6px;
+    padding: 14px 16px;
+    font-family: var(--mono);
+    font-size: 12.5px;
+    font-style: normal;
+    line-height: 1.6;
+    color: var(--text-body);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s ease;
+    z-index: 20;
+    white-space: normal;
+    text-align: left;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  }
+  .def-tip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: var(--border-hover);
+  }
+  .def-tip code {
+    font-size: 0.92em;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    padding: 1px 5px;
+    border-radius: 3px;
+    color: var(--text);
+  }
+  .def-tip-p { display: block; }
+  .def-tip-p + .def-tip-p { margin-top: 0.55em; }
+
+  .def:hover .def-tip,
+  .def:focus .def-tip,
+  .def:focus-within .def-tip {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  @media (max-width: 700px) {
+    .def-tip {
+      width: 280px;
+      font-size: 12px;
+    }
+  }
+
+  .prose ul, .prose ol {
+    padding-left: 1.4em;
+    color: var(--text-body);
+  }
+
+  .prose li + li { margin-top: 0.35em; }
+
+  .prose hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 2.5em 0;
+  }
+
+  .table-wrap {
+    margin: 1.6em 0;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--surface);
+  }
+
+  .table-caption {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    padding: 14px 20px;
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .table-scroll {
+    overflow-x: auto;
+  }
+
+  table.data {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+
+  table.data th,
+  table.data td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+
+  table.data td {
+    white-space: nowrap;
+  }
+
+  table.data tbody tr:last-child td { border-bottom: none; }
+
+  table.data th {
+    font-family: var(--mono);
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    background: var(--surface-2);
+  }
+
+  table.data td {
+    font-family: var(--mono);
+    color: var(--text-body);
+  }
+
+  table.data td:first-child {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  table.data td .hl {
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  table.data tr:hover td {
+    background: rgba(255, 87, 34, 0.03);
+  }
+
+  .reproduce-box {
+    margin: 2em 0;
+    padding: 24px 28px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 8px 8px 0;
+  }
+
+  .reproduce-box h3 {
+    font-family: var(--mono);
+    font-size: 14px;
+    font-weight: 700;
+    margin: 0 0 10px;
+    color: var(--text);
+  }
+
+  .reproduce-box p {
+    font-size: 14px;
+    color: var(--text-body);
+    line-height: 1.65;
+    margin: 0 0 8px;
+  }
+
+  .reproduce-box a {
+    color: var(--accent);
+  }
+
+  .post-cta {
+    margin: 48px auto 0;
+    max-width: 920px;
+    text-align: center;
+    padding: 48px 32px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+  }
+
+  .post-cta h2 {
+    font-family: var(--mono);
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--text);
+    letter-spacing: -0.3px;
+  }
+
+  .post-cta p {
+    color: var(--text-body);
+    font-size: 15px;
+    margin-bottom: 28px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 28px;
+    border-radius: 6px;
+    font-family: var(--sans);
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+  }
+
+  .btn-fire {
+    background: var(--accent);
+    color: white;
+  }
+
+  .btn-fire:hover {
+    background: #ff6d3d;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(255,87,34,0.25);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+
+  .btn-ghost:hover {
+    border-color: var(--border-hover);
+    background: var(--surface);
+  }
+
+  .cta-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  footer {
+    padding: 32px 0;
+    margin-top: 60px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+
+  footer a {
+    color: var(--text-dim);
+    text-decoration: none;
+    margin-left: 20px;
+    transition: color 0.2s;
+  }
+
+  footer a:hover { color: var(--accent); }
+
+  @media (max-width: 700px) {
+    .article-header { padding-top: 48px; }
+    .prose { font-size: 15px; }
+    .prose h2 { font-size: 20px; }
+    .nav-right a:not(.nav-cta):not(.current) { display: none; }
+    .cta-actions { flex-direction: column; align-items: stretch; }
+    footer { flex-direction: column; gap: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+  <nav>
+    <a href="/" class="logo">AGINOR</a>
+    <div class="nav-right">
+      <a href="mailto:tim@aginor.ai">Contact</a>
+      <a href="/extraction-test/" class="current">Extraction test</a>
+      <a href="mailto:tim@aginor.ai?subject=Aginor%3A%20Sample%20Request&body=Hi%20Tim%2C%0A%0AI'd%20like%20to%20see%20a%20sample%20batch.%0A%0ADoc%20type%20%2F%20use%20case%3A%20%0ACompany%3A%20%0A%0AThanks!" class="nav-cta">Request sample &rarr;</a>
+    </div>
+  </nav>
+
+  <header class="article-header">
+    <div class="eyebrow">Aginor · Extraction test · Methodology · May 2026</div>
+    <h1>How the Nightmare numbers are made</h1>
+    <p class="dek">Universe construction, tolerance, recall, and what changed from v0 to v1.</p>
+  </header>
+
+  <article class="prose">
+
+    <nav class="toc" aria-label="Contents">
+      <span class="toc-label">Jump to</span>
+      <a href="#define">How we define hallucination</a>
+      <a href="#fixes">v0 &rarr; v1 fixes</a>
+      <a href="#choices">Methodology choices</a>
+      <a href="#limitations">Limitations</a>
+    </nav>
+
+    <p>This is the methodology behind the <a href="/extraction-test/">Nightmare post</a>. Two reviewers flagged things in v0, one on the draft before publication and one after; the numbers in the headline post and the public repo are v1, post-fix.</p>
+
+    <h2 id="define">How we define hallucination</h2>
+
+    <p>A hallucination is an extracted value that doesn't appear anywhere in the packet's ground truth after <span class="def" tabindex="0">normalization<span class="def-tip"><span class="def-tip-p">Strings: lowercase, punctuation collapsed to spaces, whitespace runs collapsed. So <code>"Preston Center Tower, Inc."</code> and <code>"preston center tower inc"</code> match.</span><span class="def-tip-p">Numbers: <code>$</code>, commas, spaces, and trailing <code>%</code> stripped before float-cast.</span><span class="def-tip-p">A second tier strips everything but <code>[a-z0-9]</code> for ID-style matches (<code>"CL-2023-12345"</code> &harr; <code>"CL202312345"</code>), with a 4-char minimum so trivially short values don't pass.</span></span></span>. The generator writes that ground truth alongside the documents themselves: one packet-level JSON, plus per-document artifacts (<code>document_truth_*.json</code>, <code>field_truth_*.json</code>, <code>manifest_*.json</code>, <code>packet_truth.json</code>) next to each rendered PDF or XLSX. No model output ever feeds back into it, so one model's hallucinations can't mask another's. A second pass (<code>alias_audit.py</code>) re-checks each flagged value by token-level coverage, and only values that fail both passes get counted.</p>
+
+    <p>The hallucination-check universe is pooled per-packet by union'ing the per-document and packet-level ground truth. Customer info (insured, producer, preparer, carrier) is shared across the 25 to 36 documents in a packet, so a real value modeled in doc-A's ground truth but not in doc-B's shouldn't false-flag on doc-B. Per-document <code>field_truth_*.json</code> still drives field-level scoring (composite, correctness rate, omission rate).</p>
+
+    <h2 id="fixes">v0 &rarr; v1 fixes</h2>
+
+    <h3>Path-resolver fix</h3>
+
+    <p>A pre-publish audit caught the ground-truth path resolver silently failing on the canonical packet layout, which inflated v0 string rates by 4.5 to 7.9pp per model and numeric rates by 0.9 to 2.4pp.</p>
+
+
+    <h3>Strict-mode schema enforcement</h3>
+
+    <p>The v0 extraction calls ran in default JSON mode without schema enforcement. Apurv Gandhi at Reducto flagged it, and v1 converts every prompt schema to declarative JSON Schema and enables strict mode <span class="def" tabindex="0">on each provider<span class="def-tip"><span class="def-tip-p">OpenAI: <code>response_format</code> with <code>type: "json_schema"</code> and <code>strict: true</code> (Structured Outputs).</span><span class="def-tip-p">Anthropic: a single <code>extract</code> tool with <code>tool_choice: "auto"</code>, and a defensive unwrap of the occasional envelope key.</span><span class="def-tip-p">Gemini: <code>response_mime_type: "application/json"</code> plus <code>response_json_schema</code>, with <code>propertyOrdering</code> injected on every object (Gemini reorders alphabetically by default, which breaks key-aligned diffs across models).</span></span></span>.</p>
+
+    <p>The 26 per-doc-type schemas (7 non-ACORD + 19 ACORD per-form) live in <code>public/schemas/</code> and are built through <code>_build_schemas.py</code>, which enforces <code>additionalProperties: false</code>, puts every property in <code>required</code>, and represents nullable types as <code>["string", "null"]</code>. Without that, "did the model hallucinate a key" and "did the model decline to populate a key" weren't cleanly separable.</p>
+
+    <h3>Schema completeness</h3>
+
+    <p>The trigger was the <code>loss_run</code> status enum: v0 had <code>["Open", "Closed"]</code>, and strict-mode validation silently nulled everything else. Ground truth modeled 24 <code>Denied</code>, 18 <code>Subrogation</code>, and 15 <code>Re-opened</code> claims, all of which became null on output. Apurv flagged the loss_run case; I treated it as a class-of-issue and walked every leaf in all 5 ground-truth packets to rebuild the enums from observed values.</p>
+
+    <p>Three concrete changes:</p>
+
+    <ul>
+      <li>Nine fields promoted from free <code>additional_fields</code> to named enums: <code>construction</code>, <code>roof_type</code>, <code>sprinkler_type</code>, <code>fire_alarm_type</code>, <code>vehicle_class</code>, <code>cdl_class</code>, <code>policy_form_type</code>, <code>state</code>, <code>sex</code>.</li>
+      <li>Eight fields had their enum dropped because they had zero ground-truth presence.</li>
+      <li>Checkbox values standardized to <code>["Yes", "No"]</code>, replacing the v0 mix of <code>X</code> / <code>checked</code> / <code>unchecked</code>.</li>
+    </ul>
+
+    <p><code>loss_run.status</code> ended up as <code>["Open", "Closed", "Denied", "Subrogation", "Re-opened", "Closed Without Payment"]</code>.</p>
+
+    <h3>Exact-match numeric scoring</h3>
+
+    <p>v0 used a &plusmn;1% relative tolerance on numeric comparisons. An audit caught it masking real model errors: extracted $24,344,800 against rendered $24,514,100 on the N1 financial statement, cents-truncated $153,631 against $153,631.51 on loss-run rows, year off-by-one (2009 against 2010) silently scored as correct. Villify renders exact numeric values and ground truth mirrors them, so any post-normalization mismatch is model error. v1 drops the band; <code>as_float()</code> still normalizes ("$1,500,000" to <code>1500000.0</code>), but the comparison itself is <code>==</code>. Numeric hallucination rates moved 2 to 8pp per cohort.</p>
+
+    <h3>Exact-token composed-string acceptance</h3>
+
+    <p>v0 accepted a multi-token string if 80% of its tokens appeared in the source universe, on the theory that legitimate model concatenations like <code>"LOC-001: Preston Center Tower, 8117 Preston Road, Dallas, TX 75225"</code> shouldn't be penalized just because the combined form isn't in the universe. The same audit that caught the numeric tolerance found this rule admitting real hallucinations: <code>"9900 state road philadelphia pa 19136"</code> against rendered <code>"7600 state road..."</code> scored as correct because five of six tokens matched. Same failure mode, one-sided against the over-emitting (typically OpenAI) cohorts. v1 requires every token to appear in the universe; legitimate concatenations still pass because every component does in fact appear. String hallucination rates moved 0.2 to 1.5pp per cohort, with the OpenAI side hit roughly 3x harder than Anthropic or Gemini.</p>
+
+    <h3>Precision vs recall: the omission question</h3>
+
+    <p>The headline rate is <strong>hallucinations / emitted</strong>, so a model that returns <code>null</code> on hard fields gets a smaller denominator and looks better (raised by Apurv after the v0 post).</p>
+
+    <p><code>score.py</code> now classifies every ground-truth-populated field as <strong>correct</strong>, <strong>wrong value</strong>, or <strong>omitted</strong>, with the recall denominator being those same fields. A <code>null</code> where ground truth has a value counts as a failure. Aggregate in <code>results_aggregate/field_breakdown.json</code>.</p>
+
+    <div class="table-wrap">
+      <div class="table-caption">Field-level error breakdown at default effort</div>
+      <div class="table-scroll">
+        <table class="data">
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th>Ground-truth fields</th>
+              <th>Correct</th>
+              <th>Wrong value</th>
+              <th>Omitted</th>
+              <th>Any error</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>GPT-5.5</td><td>5,632</td><td>73.6%</td><td><span class="hl">7.0%</span></td><td>19.4%</td><td>26.4%</td></tr>
+            <tr><td>GPT-5.4</td><td>5,710</td><td>71.9%</td><td><span class="hl">8.9%</span></td><td>19.2%</td><td>28.1%</td></tr>
+            <tr><td>Opus 4.7</td><td>5,898</td><td>71.9%</td><td>8.7%</td><td>19.4%</td><td>28.1%</td></tr>
+            <tr><td>Sonnet 4.6</td><td>5,866</td><td>70.8%</td><td>9.9%</td><td>19.3%</td><td>29.2%</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <p>Omission rates cluster between 18.8% and 22.1% across the 15 cohorts. The cross-model spread on the headline rate is driven by the wrong-value column, not the omitted column, so models aren't gaming it by being selectively silent.</p>
+
+    <h2 id="choices">Methodology choices</h2>
+
+    <h3>Thinking defaults are asymmetric</h3>
+
+    <p>GPT-5.5, GPT-5.4, Opus 4.7, and Sonnet 4.6 default to thinking <em>off</em> when no reasoning parameter is passed. Gemini 3.x defaults to thinking <em>on</em> at HIGH and cannot be disabled. Google's docs are explicit: Gemini 3 uses dynamic thinking by default at high, and thinking cannot be turned off for Gemini 3 Pro or 3.1 Pro.</p>
+
+    <p>So a default-vs-default cell with Gemini next to the other four isn't a matched comparison: it's GPT/Claude at thinking-off against Gemini at thinking-on/HIGH. The default-only table excludes Gemini; the matched HIGH/XHIGH tables include all five. Sonnet 4.6's "XHIGH" uses <code>max</code> because Anthropic doesn't support <code>xhigh</code>; the label is kept for side-by-side reading.</p>
+
+    <h3>XHIGH is each model's ceiling, not a matched setting</h3>
+
+    <p>"XHIGH" is the highest reasoning level each provider exposes, and the four providers don't expose the same thing. GPT-5.5/5.4 use <code>reasoning_effort="xhigh"</code>. Opus 4.7 uses <code>effort="xhigh"</code> (a real Anthropic level). Sonnet 4.6 uses <code>effort="max"</code> because <code>xhigh</code> 400s on Sonnet. Gemini 3.1 Pro uses <code>thinking_budget=32000</code> (numeric budget; Gemini has no named XHIGH). Tables print "XHIGH" for side-by-side reading, but the right way to read an XHIGH-row delta is "each model at its own ceiling," not "matched effort."</p>
+
+    <h3>Runtime asymmetries: output caps and retries</h3>
+
+    <p>Two provider-side knobs aren't matched and would be hard to match without subsidizing one provider. <em>Default-mode output cap:</em> OpenAI and Anthropic are configured at 32K output tokens, Gemini at 128K, so Gemini has 4&times; the default-mode headroom. Reasoning-mode caps are all 128K and matched. A token-cap audit (<code>scripts/token_cap_audit.py</code>) finds no completion approached its configured ceiling on v1, so the asymmetry didn't bite, but it's worth knowing about. <em>Retry budget on transient errors:</em> OpenAI 5 attempts (~90s backoff), Anthropic 5 (~90s backoff, matched to OpenAI), Gemini 7 (~250s). The Gemini extra is in-code-justified by N1/N2 ACORDs hitting deterministic 503 "high demand" windows; without it Gemini would lose a handful of docs to reliability rather than to capability. We chose to subsidize reliability rather than blame the model for vendor flakiness.</p>
+
+    <h3>ACORD enum aliasing</h3>
+
+    <p>ACORD 125/140/160/24/27/28/45 schemas hard-enum <code>construction</code> and <code>roof_type</code> to short ACORD-formal lists (<code>MNC</code>, <code>JM</code>, <code>F</code>, etc.), but SOV and engineering schemas leave the same fields as free strings. The same building shows up as "MNC" on one schema and "Masonry Non-Combustible" on another, and the per-doc-type comparison goes sideways for reasons that have nothing to do with model behavior. <code>score.py</code> accepts the documented abbreviation/full-name mappings in either direction, so the same building scores the same way no matter which schema the value showed up under.</p>
+
+    <h3>Field-path aliases (scoring coverage)</h3>
+
+    <p>GT may store a value as a flat scalar like <code>is_revenue</code> while the prompt schema nests it at a longer path like <code>income_statement.revenue.net_revenue</code>. The <code>FIELD_ALIASES</code> table in <code>score.py</code> maps each flat GT field to every path a model might emit the value at; without the right entry, even a correct extraction scores as <em>omitted</em> instead of <em>correct</em>, and a wrong-value emission lands in <em>omitted</em> instead of <em>wrong</em>. An audit found <code>is_revenue</code> and <code>is_operating_expenses</code> missing from the alias table; both were fixed. Numeric and string hallucination rates are computed by <code>hallucination_analysis.py</code> against the packet universe and were unchanged by the fix. Composite scores shifted by ~0.2pp per cohort.</p>
+
+    <h3>Micro vs macro averaging</h3>
+
+    <p>We calculate both micro and macro averages. The headline rates are micro (<code>total_hallucinated / total_emitted</code>); macro averages (mean of per-doc rates) are in <code>paired_stats.json</code> for readers who want each doc weighted equally regardless of fact volume.</p>
+
+    <h3>Doc-level independence in the sign test</h3>
+
+    <p><code>paired_stats.json</code> has both sign tests and bootstrap confidence intervals (CIs). The 148 docs are independent because every comparison is the same doc across different models. Bootstrap CIs are for when shared context matters: insured and producer names repeat across the docs in a packet, so errors on those fields can correlate.</p>
+
+    <h3>Internal arithmetic consistency</h3>
+
+    <p><code>internal_consistency.py</code> checks each extraction against itself: for SOV docs, sum of per-location TIVs (total insurable values) vs reported <code>totals.tiv</code>; for loss runs, sum of claim incurred vs reported grand total. Any mismatch at cents precision flags the doc.</p>
+
+    <p>For financial statements the same idea applies: at any dict level containing a <code>total_*</code> key, the non-total numeric siblings must sum to the reported total. For sibling dicts, the check uses each dict's own declared <code>total_*</code> instead of a raw sum. This catches an extraction that reports <code>total_operating_expenses</code> alongside <code>depreciation</code> and <code>other_operating</code> whose values don't add up. Cases where a sub-bucket is opaque are skipped, since flagging those would over-fire. No cohort produces a <code>financial_total_mismatch</code> on v1: when models declare a total alongside its line items, they sum consistently.</p>
+
+    <h3>Universe audit (rendered-page-bounded)</h3>
+
+    <p>The hallucination check's "universe" is the set of values that count as real, pooled from the packet GT plus the generator's per-document artifacts. The methodological claim is that every value in that universe corresponds to something on a rendered page, so a model gets credit only for emitting values a human reader could have read. An audit sampled universe entries that came only from generator artifacts (not in the packet GT) and confirmed the canonical text is on the page, but also caught that PDF layout coordinates (<code>x</code>, <code>y</code>, <code>width</code>, <code>height</code>, <code>bbox</code>, page indices) were being walked into the numeric universe alongside content. 34-64% of the pre-fix universe number-set was layout metadata; 14 out of 25,969 model-emitted numerics across 5 default-mode cohorts were rescued by a coordinate match (0.054%, below the rounding the published rates use). <code>_UNIVERSE_SKIP_KEYS</code> in <code>hallucination_analysis.py</code> now skips layout keys and containers; rates shifted by 0.0-0.3pp per cohort with no rank changes.</p>
+
+    <h3>What the hallucination check doesn't see</h3>
+
+    <p>The hallucination rate is computed over leaf values that survive three filters; the filters are symmetric across models but worth disclosing because they shape what "hallucination" means here.</p>
+
+    <p><em>Short strings.</em> <code>hallucination_analysis.py</code> requires a value to have at least 3 characters to enter <code>checked_strings</code>. Two-letter codes (state, country, ACORD construction abbreviations) never enter the denominator. A model fabricating <code>state: "XX"</code> isn't counted; a model fabricating an insured name is. We chose this because 2-letter values are a different problem (enum-match, not fabrication) and including them would let one provider's enum-strictness inflate its measured rate relative to providers that let off-enum tokens through.</p>
+
+    <p><em>Hedging strings.</em> Filler tokens (<code>Multiple</code>, <code>Various</code>, <code>See below</code>, <code>N/A</code>, <code>checked</code>/<code>unchecked</code>, etc.) are skipped from the numerator. A model that hedges 20% of fields has a lower measured rate than a model that guesses on 20% of fields, even if the practical value is the same. The pure precision of "fraction of emitted values that are real" can't distinguish these, which is why the post also publishes the omission rate.</p>
+
+    <p><em>Free-text prose.</em> <code>SKIP_LEAF_NAMES</code> and <code>SKIP_PATH_FRAGMENTS</code> exclude summary/description/notes/narrative/recommendations leaves. Prose is the part of an extraction most prone to fabrication, but matching prose against a packet "universe" produces noise on every model and we don't have a defensible scorer for it. The headline "hallucination rate" is a structured-field rate.</p>
+
+    <h2 id="limitations">Limitations</h2>
+
+    <h3>What v1 still isn't</h3>
+
+    <p>We have 148 docs across 5 packets, so all tests are N=1. This is a test, not a benchmark. We plan to turn it into one with more documents per difficulty tier so per-difficulty rates aren't dominated by noise.</p>
+
+    <h3>Sonnet at XHIGH cannot complete the hardest docs</h3>
+
+    <p>Sonnet 4.6 at XHIGH effort deterministically times out on the 4 biggest N5 documents (3 loss-run variants and the driver schedule). Multiple retries with the 1200s API timeout and a fail-fast diagnostic run all return "request timed out or interrupted". The extended-thinking response on those inputs exceeds Anthropic's long-request budget. Sonnet 4.6 at HIGH hits the same wall on 1 N5 doc. Rates for those cohorts are computed on what did complete (n=144 for <code>sonnet_xhigh</code>, n=147 for <code>sonnet_high</code>), and <code>report.md</code> footnotes every affected cell. Treat the Sonnet XHIGH column with a discount: the dropped docs are the hardest in the corpus, so the cohort rate is biased low. No other provider has this failure mode at this scale.</p>
+
+    <h2 id="reproduce">Reproduce</h2>
+
+    <div class="reproduce-box">
+      <h3>Test set + scoring pipeline</h3>
+      <p>All 148 documents, prompts, scoring engine, and recall analyzer live in the <a href="https://github.com/Tim-Aginor/nightmare-extraction-test" rel="noopener">public repo</a>. <code>determinism_test.py</code> is the hard pre-publish CI gate.</p>
+      <p>Three levels of effort: inspect the checked-in aggregates with <code>jq</code>, re-score the pre-run extractions without API keys, or re-run extraction against the APIs. The repo README walks through each.</p>
+      <p>Full hallucination tables, recall-view breakdown, and per-model run counts live in <a href="https://github.com/Tim-Aginor/nightmare-extraction-test/blob/main/report.md" rel="noopener">report.md</a>.</p>
+      <p><em>All data is synthetic: no real PII, no real policies, no real companies.</em></p>
+    </div>
+
+  </article>
+
+  <div class="post-cta">
+    <h2>Back to the result</h2>
+    <p>If you came here from somewhere else, the headline post has the rates, the case studies, and the paired-comparison tables that this methodology underwrites.</p>
+    <div class="cta-actions">
+      <a href="/extraction-test/" class="btn btn-fire">Read the headline post &rarr;</a>
+      <a href="mailto:tim@aginor.ai?subject=Nightmare%3A%20Licensing%20or%20research%20access&body=Hi%20Tim%2C%0A%0AI'd%20like%20access%20to%20(mark%20any%20that%20apply)%3A%0A%5B%20%5D%20Full%20148-doc%20test%20set%20(research%20license)%0A%5B%20%5D%20Commercial%20license%20(training%20%2F%20production%20use)%0A%5B%20%5D%20Detailed%20methodology%20notes%20%2B%20per-doc%20data%0A%0AName%20%2F%20affiliation%3A%20%0AIntended%20use%3A%20%0A%0AThanks!" class="btn btn-ghost">Licensing or access</a>
+    </div>
+  </div>
+
+  <footer>
+    <span>&copy; 2026 Aginor</span>
+    <div>
+      <a href="/">Home</a>
+      <a href="mailto:tim@aginor.ai">Contact</a>
+    </div>
+  </footer>
+</div>
+
+<script>
+const nav = document.querySelector('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+}, { passive: true });
+</script>
+
+</body>
+</html>
