@@ -13,13 +13,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Aginor | Adversarial Synthetic Data for AI Document Extraction</title>
-<meta name="description" content="Aginor builds adversarial synthetic data for AI document extraction. Broken tables, corrupted fonts, scan artifacts, and carrier-specific layouts, with ground-truth labels attached.">
+<meta name="description" content="The adversarial synthetic documents that broke every frontier model we tested, with ground-truth labels attached. For AI document extraction teams.">
 <meta name="keywords" content="adversarial synthetic data, AI document extraction, synthetic insurance documents, document extraction evaluation, IDP testing data, ACORD form data, adversarial training data, synthetic training data, labeled training data, synthetic evaluation data">
 <link rel="canonical" href="https://www.aginor.ai/">
 
 <!-- Open Graph -->
 <meta property="og:title" content="Aginor | Adversarial Synthetic Data for AI Document Extraction">
-<meta property="og:description" content="Adversarial synthetic documents for AI extraction pipelines. The messy, broken, real-looking data your agents choke on in production, with labels already attached.">
+<meta property="og:description" content="Adversarial synthetic data for AI document extraction. The documents that broke every frontier model we tested, with ground-truth labels attached. Public benchmark + dataset on HuggingFace.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.aginor.ai/">
 <meta property="og:site_name" content="Aginor">
@@ -27,7 +27,7 @@
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Aginor | Adversarial Synthetic Data for AI Document Extraction">
-<meta name="twitter:description" content="Adversarial synthetic documents for AI extraction pipelines. The messy, broken, real-looking data your agents choke on in production, with labels already attached.">
+<meta name="twitter:description" content="Adversarial synthetic data for AI document extraction. The documents that broke every frontier model we tested, with ground-truth labels attached. Public benchmark + dataset on HuggingFace.">
 
 <!-- Structured Data -->
 <script type="application/ld+json">
@@ -36,7 +36,7 @@
   "@type": "Organization",
   "name": "Aginor",
   "url": "https://www.aginor.ai",
-  "description": "Aginor builds adversarial synthetic data for AI document extraction. Insurance documents with broken tables, scan artifacts, and carrier-specific layouts, with ground-truth labels attached.",
+  "description": "Aginor builds adversarial synthetic data for AI document extraction. The synthetic documents that broke every frontier model tested, with ground-truth labels attached. Used by IDP and document extraction teams to test pipelines against adversarial inputs they can't legally source from real customer data.",
   "founder": {
     "@type": "Person",
     "name": "Tim Michaud",
@@ -336,94 +336,59 @@
     line-height: 1.65;
   }
 
-  /* Quote section */
-  .quote-section {
+  /* Benchmark stats strip */
+  .stats-section {
     padding: 0 0 80px;
   }
 
-  .quote-card {
-    max-width: 700px;
+  .stats-strip {
+    max-width: 720px;
     margin: 0 auto;
-    position: relative;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 48px 44px;
-    overflow: hidden;
+    padding: 32px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    text-align: center;
   }
 
-  .quote-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, var(--accent), transparent);
-  }
-
-  .quote-mark {
-    font-family: Georgia, serif;
-    font-size: 72px;
-    color: var(--accent);
-    opacity: 0.2;
-    line-height: 1;
-    margin-bottom: -12px;
-    display: block;
-  }
-
-  .quote-text {
-    font-size: 19px;
-    line-height: 1.7;
-    color: var(--text);
-    margin-bottom: 28px;
-    font-weight: 400;
-  }
-
-  .quote-text em {
-    color: var(--accent);
-    font-style: normal;
-    font-weight: 500;
-  }
-
-  .quote-attr {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-
-  .quote-attr-line {
-    width: 32px;
-    height: 1px;
-    background: var(--border-hover);
-  }
-
-  .quote-attr-info {
+  .stats-strip-lede {
     font-family: var(--mono);
-    font-size: 12px;
+    font-size: 15px;
+    color: var(--text);
+    line-height: 1.6;
+    margin-bottom: 18px;
+    padding: 0 12px;
+  }
+
+  .stats-strip-lede strong {
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  .stats-strip-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 6px 14px;
+    font-size: 13px;
+    color: var(--text-body);
+    padding: 0 12px;
+  }
+
+  .stats-strip-row .sep {
     color: var(--text-dim);
-    line-height: 1.5;
   }
 
-  .quote-attr-info strong {
+  .stats-strip-row a {
     color: var(--text-body);
-    font-weight: 600;
-    display: block;
+    text-decoration: none;
+    border-bottom: 1px solid var(--border-hover);
+    transition: color 0.2s, border-color 0.2s;
   }
 
-  .quote-secondary {
-    max-width: 700px;
-    margin: 20px auto 0;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 32px 44px;
-  }
-
-  .quote-secondary .quote-text {
-    font-size: 16px;
-    margin-bottom: 20px;
-    color: var(--text-body);
+  .stats-strip-row a:hover {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
   }
 
   /* Verticals: expanded */
@@ -692,6 +657,24 @@
     font-weight: 600;
   }
 
+  .founder-reach {
+    font-size: 15px;
+    color: var(--text-body);
+    line-height: 1.75;
+    margin-top: 18px;
+  }
+
+  .founder-reach a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255,87,34,0.3);
+    transition: border-color 0.2s;
+  }
+
+  .founder-reach a:hover {
+    border-bottom-color: var(--accent);
+  }
+
   /* Compliance callout */
   .compliance-section {
     padding: 0 0 80px;
@@ -805,7 +788,7 @@
 
   .hero { animation: slideUp 0.5s ease-out; }
   .problem-section { animation: slideUp 0.5s ease-out 0.05s both; }
-  .quote-section { animation: slideUp 0.5s ease-out 0.1s both; }
+  .stats-section { animation: slideUp 0.5s ease-out 0.1s both; }
 
   /* Scroll reveal */
   .reveal {
@@ -819,59 +802,18 @@
     transform: translateY(0);
   }
 
-  .also-available {
-    margin-top: 40px;
-  }
-
-  .also-label {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--text-dim);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 16px;
-  }
-
-  .also-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-  }
-
-  .also-item {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 20px 18px;
-  }
-
-  .also-item h4 {
-    font-family: var(--mono);
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--text);
-    margin-bottom: 8px;
-  }
-
-  .also-item p {
-    font-size: 12px;
-    color: var(--text-body);
-    line-height: 1.55;
-  }
-
   /* Responsive */
   @media (max-width: 700px) {
     .problem-grid { grid-template-columns: 1fr; }
     .vert-cards-v2 { grid-template-columns: 1fr; }
     .vert-stat-row { grid-template-columns: repeat(3, 1fr); }
-    .also-grid { grid-template-columns: 1fr; }
     .numbers-row { grid-template-columns: repeat(2, 1fr); }
     .how-steps { flex-direction: column; align-items: center; }
     .how-step::after { display: none !important; }
     .hero-actions { flex-direction: column; align-items: center; }
+    .hero-actions .btn { width: 100%; max-width: 280px; justify-content: center; }
     .nav-right a:not(.nav-cta) { display: none; }
-    .quote-card { padding: 32px 24px; }
-    .quote-secondary { padding: 24px; }
+    .stats-strip-row { font-size: 12px; gap: 4px 10px; }
     .compliance-card { flex-direction: column; gap: 16px; }
     footer { flex-direction: column; gap: 12px; }
     footer a { margin: 0 10px; }
@@ -886,17 +828,17 @@
     <div class="nav-right">
       <a href="mailto:tim@aginor.ai">Contact</a>
       <a href="/extraction-test/">Extraction test</a>
-      <a href="mailto:tim@aginor.ai?subject=Aginor%20%E2%80%94%20Sample%20Request&body=Hi%20Tim%2C%0A%0AI'd%20like%20to%20see%20a%20sample%20batch.%0A%0ADoc%20type%20%2F%20use%20case%3A%20%0ACompany%3A%20%0A%0AThanks!" class="nav-cta">Request sample &rarr;</a>
+      <a href="mailto:tim@aginor.ai?subject=Aginor%20%E2%80%94%20Doc%20for%20variants&body=Hi%20Tim%2C%0A%0AI'd%20like%20to%20send%20a%20doc%20for%20variants.%0A%0ADoc%20type%20%2F%20use%20case%3A%20%0ACompany%3A%20%0A%0AThanks!" class="nav-cta">Send us a doc &rarr;</a>
     </div>
   </nav>
 
   <!-- Hero -->
   <section class="hero">
     <h1><span class="hl">Adversarial</span> synthetic data for AI document extraction</h1>
-    <p class="hero-sub">We build the synthetic documents your pipeline chokes on. Broken tables, corrupted fonts, scan artifacts, layout variants, handwritten annotations. With ground-truth labels already attached.</p>
+    <p class="hero-sub">The synthetic documents that broke every frontier model we tested, with ground-truth labels attached.</p>
     <div class="hero-actions">
-      <a href="mailto:tim@aginor.ai?subject=Aginor%20%E2%80%94%20Sample%20Request&body=Hi%20Tim%2C%0A%0AI'd%20like%20to%20see%20a%20sample%20batch.%0A%0ADoc%20type%20%2F%20use%20case%3A%20%0ACompany%3A%20%0A%0AThanks!" class="btn btn-fire">Request a sample</a>
-      <a href="mailto:tim@aginor.ai?subject=Aginor%20%E2%80%94%20Intro%20Request&body=Hi%20Tim%2C%0A%0AI'd%20like%20to%20chat%20about%20what%20you're%20building.%0A%0ACompany%3A%20%0AWhat%20we're%20working%20on%3A%20%0A%0AThanks!" class="btn btn-ghost">Talk to founder</a>
+      <a href="/extraction-test/" class="btn btn-fire">See benchmark results</a>
+      <a href="https://huggingface.co/datasets/TimAginor/nightmare-extraction-test" target="_blank" rel="noopener" class="btn btn-ghost">Browse the dataset</a>
     </div>
   </section>
 
@@ -923,20 +865,20 @@
     </div>
   </section>
 
-  <!-- Quotes -->
-  <section class="quote-section">
-    <div class="quote-card">
-      <span class="quote-mark">&ldquo;</span>
-      <p class="quote-text">Frankly it's enough to convince me you'd be capable of getting us <em>real-enough data for benchmarking and potentially finetuning</em>. You have genuinely neat tech I have not seen from any other company.</p>
-      <div class="quote-attr">
-        <div class="quote-attr-line"></div>
-        <div class="quote-attr-info">
-          <strong>CTO, AI Document Extraction Company</strong>
-          Insurance vertical &middot; After reviewing full technical proposal
-        </div>
+  <!-- Benchmark stats strip -->
+  <section class="stats-section">
+    <div class="stats-strip">
+      <p class="stats-strip-lede">Every frontier model we tested hallucinated values on these documents. GPT-5.4 reported a <strong>$42M</strong> revenue figure as <strong>$21.65M</strong>.</p>
+      <div class="stats-strip-row">
+        <span>148 adversarial documents</span>
+        <span class="sep">&middot;</span>
+        <span>5 frontier models tested</span>
+        <span class="sep">&middot;</span>
+        <span>9 document categories</span>
+        <span class="sep">&middot;</span>
+        <a href="https://huggingface.co/datasets/TimAginor/nightmare-extraction-test" target="_blank" rel="noopener">Public dataset on HuggingFace</a>
       </div>
     </div>
-
   </section>
 
 
@@ -1000,73 +942,42 @@
         </div>
       </div>
 
-      <!-- Cybersecurity -->
+      <!-- Clone-and-variants -->
       <div class="vert-card-v2">
         <div class="vert-header">
-          <h3>Synthetic Security Logs</h3>
-          <span class="vert-badge vert-badge-blue">42 scenarios</span>
+          <h3>Clone-and-variants</h3>
+          <span class="vert-badge vert-badge-blue">Up to 20 per doc</span>
         </div>
         <div class="vert-stat-row">
           <div class="vert-stat">
-            <span class="vert-stat-num">52K</span>
-            <span class="vert-stat-label">events / scenario</span>
+            <span class="vert-stat-num">20</span>
+            <span class="vert-stat-label">variants per input doc</span>
           </div>
           <div class="vert-stat">
-            <span class="vert-stat-num">130</span>
-            <span class="vert-stat-label">simulated actors</span>
+            <span class="vert-stat-num">65</span>
+            <span class="vert-stat-label">adversarial patterns</span>
           </div>
           <div class="vert-stat">
-            <span class="vert-stat-num">33</span>
-            <span class="vert-stat-label">false positive patterns</span>
+            <span class="vert-stat-num">48hr</span>
+            <span class="vert-stat-label">typical turnaround</span>
           </div>
         </div>
-        <p class="vert-desc">Okta System Log event streams with attack signals buried in 52K events of normal traffic. Attack events are &lt;0.2% of volume, and 33 false-positive patterns make sure your agent can't cheat with single-signal detection. No structural tells. Agents have to reason about behavior.</p>
+        <p class="vert-desc">Send us one hard document. We send back up to 20 variants. Same layout and format you sent, with new underlying data and adversarial patterns injected so your model can't memorize what it saw in training. Ground-truth labels attached. For IDP teams that have a known edge case and want a regression suite around it.</p>
 
-        <div class="vert-detail-label">Attack categories</div>
+        <div class="vert-detail-label">What we change</div>
         <div class="vert-tags">
-          <span class="vtag">Direct credential attacks</span>
-          <span class="vtag">SSO & post-compromise</span>
-          <span class="vtag">Absence detection</span>
-          <span class="vtag">Kill chains</span>
+          <span class="vtag">Data injection</span>
+          <span class="vtag">Layout preserved</span>
+          <span class="vtag">Format preserved</span>
+          <span class="vtag">Adversarial patterns</span>
+          <span class="vtag">Ground truth attached</span>
         </div>
-        <div class="vert-detail-label">Example scenarios</div>
+        <div class="vert-detail-label">Example inputs</div>
         <div class="vert-tags">
-          <span class="vtag">Credential stuffing</span>
-          <span class="vtag">MFA fatigue</span>
-          <span class="vtag">Golden SAML bypass</span>
-          <span class="vtag">AiTM phishing</span>
-          <span class="vtag">Scattered Spider</span>
-          <span class="vtag">AWS role escalation</span>
-          <span class="vtag">SaaS data exfil</span>
-          <span class="vtag">Token replay</span>
-          <span class="vtag">Consent phishing</span>
-          <span class="vtag">Ghost sessions</span>
-        </div>
-        <div class="vert-detail-label">Anti-fingerprinting</div>
-        <div class="vert-tags">
-          <span class="vtag">Real ASNs/ISPs</span>
-          <span class="vtag">ms timestamp jitter</span>
-          <span class="vtag">Per-actor device IDs</span>
-          <span class="vtag">14-day baselines</span>
-          <span class="vtag">1,025 event types</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="also-available">
-      <div class="also-label">Also available</div>
-      <div class="also-grid">
-        <div class="also-item">
-          <h4>Invoice clone-and-variants</h4>
-          <p>Take a known hard doc and get back variants with both the underlying data and the visual format swapped out. Expands edge-case coverage and proves the model is parsing, not memorizing the original.</p>
-        </div>
-        <div class="also-item">
-          <h4>10Q query-ambiguity sets</h4>
-          <p>Quarterly filings paired with worksheets designed to probe how your pipeline handles ambiguous queries and schema-doc mismatches.</p>
-        </div>
-        <div class="also-item">
-          <h4>Custom doc types, any volume</h4>
-          <p>Your hard cases, generated to spec at whatever volume you need.</p>
+          <span class="vtag">Spanish invoices</span>
+          <span class="vtag">10Q + Excel workbooks</span>
+          <span class="vtag">CSV / XLSX / PDF</span>
+          <span class="vtag">Custom doc types, most filetypes</span>
         </div>
       </div>
     </div>
@@ -1099,15 +1010,16 @@
       <div class="founder-name">Tim Michaud, Founder</div>
       <div class="founder-meta">YC Alum &middot; Previously Staff Security Eng @ Moveworks (acq. ServiceNow)</div>
       <p class="founder-narrative">At Moveworks I spent years <strong>breaking 250+ AI agents serving Fortune 500 companies</strong> as the security eng on those rollouts. Before that I spent a decade in security research finding bugs in Apple, Chrome, and Qualcomm. Aginor came from putting those two things together: I know what production data does to agents, and I know how to generate the inputs that break them.</p>
+      <p class="founder-reach">I read every email. Reach me at <a href="mailto:tim@aginor.ai">tim@aginor.ai</a>.</p>
     </div>
   </section>
 
 
   <!-- Bottom CTA -->
   <section class="bottom-cta reveal">
-    <h2>Get sample adversarial synthetic data</h2>
-    <p>Tell us your doc type and edge cases, and we'll generate a sample batch with labels.</p>
-    <a href="mailto:tim@aginor.ai?subject=Aginor%20%E2%80%94%20Sample%20Request&body=Hi%20Tim%2C%0A%0AI'd%20like%20to%20see%20a%20sample%20batch.%0A%0ADoc%20type%20%2F%20use%20case%3A%20%0ACompany%3A%20%0A%0AThanks!" class="btn btn-fire">Request sample</a>
+    <h2>Start with one hard document</h2>
+    <p>Send us a doc your pipeline struggles with. We send back up to 20 variants with new data and adversarial patterns, ground truth attached.</p>
+    <a href="mailto:tim@aginor.ai?subject=Aginor%20%E2%80%94%20Doc%20for%20variants&body=Hi%20Tim%2C%0A%0AI'd%20like%20to%20send%20a%20doc%20for%20variants.%0A%0ADoc%20type%20%2F%20use%20case%3A%20%0ACompany%3A%20%0A%0AThanks!" class="btn btn-fire">Send us a doc</a>
   </section>
 
   <footer>
